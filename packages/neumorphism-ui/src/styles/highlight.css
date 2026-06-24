@@ -1,0 +1,19 @@
+@layer neu.highlight {
+  .neu-highlight {
+    --neu-code-comment: #687078;
+    --neu-code-keyword: #8b4f70;
+    --neu-code-string: #39715a;
+    --neu-code-number: #8a5b2a;
+    display: block;
+    overflow-x: auto;
+    padding: 1rem;
+    border-radius: var(--neu-radius-md);
+    background: var(--neu-bg);
+    box-shadow: var(--neu-shadow-inset);
+    color: var(--neu-text);
+  }
+  .neu-highlight .hljs-comment, .neu-highlight .hljs-quote { color: var(--neu-code-comment); }
+  .neu-highlight :where(.hljs-keyword, .hljs-selector-tag, .hljs-built_in) { color: var(--neu-code-keyword); }
+  .neu-highlight :where(.hljs-string, .hljs-attribute, .hljs-literal) { color: var(--neu-code-string); }
+  .neu-highlight :where(.hljs-number, .hljs-symbol, .hljs-bullet) { color: var(--neu-code-number); }
+}

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healock UI - Ultimate Engine Showcase</title>
+    <link rel="stylesheet" href="neu-ui.css">
+
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+
+    <style>
+        /* === 演示页面的专用布局样式 === */
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px;
+            box-sizing: border-box;
+            gap: 60px; /* 拉大各模块间距 */
+        }
+
+        /* 顶部标题区 */
+        .header-section {
+            text-align: center;
+            animation: fadeInDown 0.6s ease;
+        }
+
+        /* 展区大标题 */
+        .section-header {
+            width: 100%;
+            max-width: 1200px;
+            text-align: left;
+            margin-bottom: -20px;
+            padding-left: 10px;
+            color: var(--text-sub);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        /* 不同的网格布局以适应展示 */
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; width: 100%; max-width: 1200px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; width: 100%; max-width: 1200px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; width: 100%; max-width: 1200px; }
+
+        /* 辅助间距与对齐 */
+        .mb-20 { margin-bottom: 20px; }
+        .mb-30 { margin-bottom: 30px; }
+        .flex-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+        .flex-col { display: flex; flex-direction: column; gap: 20px; align-items: flex-start;}
+        
+        /* 材质徽章 */
+        .surface-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            color: var(--color-primary);
+            box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light);
+        }
+
+        .flex-center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 100%;
+        }
+
+        /* 入场动画 */
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .anim-item { animation: fadeInUp 0.6s ease backwards; }
+    </style>
+</head>
+<body>
+
+    <div class="header-section">
+        <h1 class="neu-title" style="font-size: 42px; margin-bottom: 10px;">Healock UI Engine</h1>
+        <p class="neu-text-sub" style="font-size: 16px;">Parametric Neumorphism Design System</p>
+        
+        <div style="margin-top: 30px; display: inline-flex; align-items: center; gap: 15px;">
+            <span class="neu-text-sub" style="font-size: 14px; font-weight: 600;">Light</span>
+            <label class="neu-switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="neu-slider"></span>
+            </label>
+            <span class="neu-text-sub" style="font-size: 14px; font-weight: 600;">Dark</span>
+        </div>
+    </div>
+
+    <div class="section-header">01 / Surface Topography (四大曲面)</div>
+    <div class="grid-4 anim-item" style="animation-delay: 0.1s;">
+        <div class="neu-card flex-center-content">
+            <div class="surface-badge">Flat</div>
+            <h3 class="neu-title" style="font-size: 18px;">基础平卡片</h3>
+            <p class="neu-text-sub">标准的外阴影，表面无渐变，适合大面积的文章容器背景。</p>
+        </div>
+        <div class="neu-card-convex flex-center-content">
+            <div class="surface-badge">Convex</div>
+            <h3 class="neu-title" style="font-size: 18px;">凸起展台</h3>
+            <p class="neu-text-sub">带有隆起的曲面材质光泽，非常适合用来吸引目光的侧边栏模块。</p>
+        </div>
+        <div class="neu-card-concave flex-center-content">
+            <div class="surface-badge">Concave</div>
+            <h3 class="neu-title" style="font-size: 18px;">下沉托盘</h3>
+            <p class="neu-text-sub">表面凹下但依然浮在桌面之上，适合作为展示图片和代码块的底座。</p>
+        </div>
+        <div class="neu-card-inset flex-center-content">
+            <div class="surface-badge">Inset</div>
+            <h3 class="neu-title" style="font-size: 18px;">深渊坑洞</h3>
+            <p class="neu-text-sub">完全被压入屏幕下方，适合用于文件拖拽上传区或者极其底层的画布。</p>
+        </div>
+    </div>
+
+    <div class="section-header">02 / Light Softness (光影柔和度)</div>
+    <div class="grid-3 anim-item" style="animation-delay: 0.2s;">
+        <div class="neu-card-convex neu-ratio-2 flex-center-content">
+            <div class="surface-badge">Ratio: 1:2</div>
+            <h3 class="neu-title" style="font-size: 18px;">硬光源 (清晰干脆)</h3>
+            <p class="neu-text-sub">边缘明朗的阴影过渡，立体感最强烈，这是 Neumorphism 的标准光影。</p>
+        </div>
+        <div class="neu-card-convex neu-ratio-3 flex-center-content">
+            <div class="surface-badge">Ratio: 1:3</div>
+            <h3 class="neu-title" style="font-size: 18px;">柔光源 (温润发散)</h3>
+            <p class="neu-text-sub">阴影晕染得更开，材质感觉更加柔软细腻，适合高雅的设计排版。</p>
+        </div>
+        <div class="neu-card-convex neu-ratio-4 flex-center-content">
+            <div class="surface-badge">Ratio: 1:4</div>
+            <h3 class="neu-title" style="font-size: 18px;">漫反射 (云雾悬浮)</h3>
+            <p class="neu-text-sub">边界极度模糊，适合用于超大背景卡片，不会让深色阴影显得过于突兀。</p>
+        </div>
+    </div>
+
+    <div class="section-header">03 / Elastic Scaling (自动推导尺码)</div>
+    <div class="grid-3 anim-item" style="animation-delay: 0.3s; align-items: center;">
+        <div class="neu-card neu-size-lg">
+            <div class="surface-badge">neu-size-lg</div>
+            <h2 class="neu-title">Max Space</h2>
+            <p class="neu-text-sub">自动放大的 Padding(60px)、圆角(40px)和阴影(15px)，气场十足，绝不拥挤。</p>
+        </div>
+        <div class="neu-card">
+            <div class="surface-badge">Default</div>
+            <h2 class="neu-title">Standard</h2>
+            <p class="neu-text-sub">最平衡的排版间距，适用于博客的常规文章列表和主要内容区块。</p>
+        </div>
+        <div class="neu-card neu-size-sm">
+            <div class="surface-badge">neu-size-sm</div>
+            <h2 class="neu-title" style="font-size: 20px;">Compact Widget</h2>
+            <p class="neu-text-sub">阴影距离自动缩小至5px，适配窄边框侧边栏，精致且清晰。</p>
+        </div>
+    </div>
+
+    <div class="section-header">04 / Elastic Elements (量子化小组件)</div>
+    <div class="grid-3 anim-item" style="animation-delay: 0.4s;">
+        
+        <div class="neu-card-concave">
+            <div class="neu-text-sub mb-20" style="text-align: center; font-weight: bold;">Avatars (自适应边框与光影)</div>
+            <div class="flex-row" style="justify-content: center; align-items: flex-end;">
+                <div class="neu-avatar" style="--av-size: 120px; background-image: url('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80');"></div>
+                <div class="neu-avatar" style="--av-size: 70px; background-image: url('https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80');"></div>
+                <div class="neu-avatar" style="--av-size: 40px; background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80');"></div>
+            </div>
+        </div>
+
+        <div class="neu-card">
+            <div class="neu-text-sub mb-20" style="text-align: center; font-weight: bold;">Buttons (L / M / S)</div>
+            <div class="flex-col" style="align-items: center;">
+                <button class="neu-btn neu-btn-lg">Large Action</button>
+                <button class="neu-btn">Standard Btn</button>
+                <button class="neu-btn neu-btn-sm" style="color: var(--color-danger);">Delete Small</button>
+            </div>
+        </div>
+
+        <div class="neu-card-convex">
+            <div class="neu-text-sub mb-20" style="text-align: center; font-weight: bold;">Tags (标签云)</div>
+            <div style="text-align: center;">
+                <a href="#" class="neu-tag neu-tag-lg">#Large Tag</a>
+                <br>
+                <a href="#" class="neu-tag">#Design</a>
+                <a href="#" class="neu-tag">#Engine</a>
+                <br>
+                <a href="#" class="neu-tag neu-tag-sm">#frontend</a>
+                <a href="#" class="neu-tag neu-tag-sm">#css</a>
+                <a href="#" class="neu-tag neu-tag-sm">#ui</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-header">05 / Complex Widgets (表单与高亮)</div>
+    <div class="grid-2 anim-item" style="animation-delay: 0.5s;">
+        <div class="neu-card">
+            <h2 class="neu-title" style="font-size: 22px;">Input & Controls</h2>
+            
+            <div class="mb-30">
+                <div class="neu-text-sub mb-20">Deep Inset Search</div>
+                <div class="neu-search-wrapper">
+                    <svg class="neu-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" class="neu-search-input" placeholder="Type to search...">
+                </div>
+            </div>
+
+            <div class="mb-30 flex-row" style="justify-content: space-between;">
+                <div class="neu-segment">
+                    <div class="neu-segment-item">
+                        <input type="radio" name="view" id="seg1" class="neu-segment-input" checked>
+                        <label for="seg1" class="neu-segment-label">Post</label>
+                    </div>
+                    <div class="neu-segment-item">
+                        <input type="radio" name="view" id="seg2" class="neu-segment-input">
+                        <label for="seg2" class="neu-segment-label">Code</label>
+                    </div>
+                </div>
+                
+                <label class="neu-switch">
+                    <input type="checkbox" checked>
+                    <span class="neu-slider"></span>
+                </label>
+            </div>
+
+            <div class="mb-30">
+                <div class="neu-text-sub mb-20">Checkboxes (多选)</div>
+                <div class="flex-row">
+                    <label class="neu-check-label">
+                        <input type="checkbox" class="neu-check-input" checked>
+                        <div class="neu-check-box square"></div>
+                        <span>Design</span>
+                    </label>
+                    <label class="neu-check-label">
+                        <input type="checkbox" class="neu-check-input">
+                        <div class="neu-check-box square"></div>
+                        <span>Code</span>
+                    </label>
+                    <label class="neu-check-label">
+                        <input type="checkbox" class="neu-check-input" checked>
+                        <div class="neu-check-box square"></div>
+                        <span>Music</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="mb-30">
+                <div class="neu-text-sub mb-20">Radio Buttons (单选)</div>
+                <div class="flex-row">
+                    <label class="neu-check-label">
+                        <input type="radio" name="theme-opt" class="neu-check-input" checked>
+                        <div class="neu-check-box round"></div>
+                        <span>Light</span>
+                    </label>
+                    <label class="neu-check-label">
+                        <input type="radio" name="theme-opt" class="neu-check-input">
+                        <div class="neu-check-box round"></div>
+                        <span>Dark</span>
+                    </label>
+                    <label class="neu-check-label">
+                        <input type="radio" name="theme-opt" class="neu-check-input">
+                        <div class="neu-check-box round"></div>
+                        <span>Auto</span>
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <div class="neu-text-sub mb-20">Pagination Mechanism</div>
+                <ul class="neu-pagination" style="justify-content: flex-start;">
+                    <li class="neu-page-item">&lt;</li>
+                    <li class="neu-page-item active">1</li>
+                    <li class="neu-page-item">2</li>
+                    <li class="neu-page-item">&gt;</li>
+                </ul>
+            </div>
+
+            <div class="mb-30" style="width: 100%;">
+                <div class="neu-text-sub mb-20" style="font-weight: 600;">File Uploading...</div>
+                
+                <div class="neu-progress-track">
+                    <div class="neu-progress-fill" style="width: 65%;"></div>
+                </div>
+                
+                <div class="neu-progress-meta">
+                    <span>archive_2026.zip</span>
+                    <span>65% (2.4MB / 3.8MB)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="neu-card" style="display: flex; flex-direction: column;">
+            <h2 class="neu-title" style="font-size: 22px;">Morandi Code Highlight</h2>
+            <div class="neu-text-sub mb-20">Powered by Highlight.js & Maple Mono</div>
+            
+            <pre class="neu-code-block" style="flex: 1;"><code class="language-javascript">/**
+ * Dynamic Sizing Architecture
+ * Scalable padding, blur and distance.
+ */
+class CardEngine {
+    constructor(baseSize) {
+        this.distance = baseSize;
+        this.ratio = 2; // Default 1:2
+    }
+
+    renderBoxShadow() {
+        const blur = this.distance * this.ratio;
+        // The magic happens here:
+        return `
+            ${this.distance}px ${this.distance}px ${blur}px var(--shadow-dark)
+        `;
+    }
+}</code></pre>
+        </div>
+    </div>
+
+    <div class="section-header">06 / Typography & Markdown (正文排版引擎)</div>
+    <div class="grid-2 anim-item" style="animation-delay: 0.6s;">
+        <div class="neu-card neu-content" style="grid-column: 1 / -1; max-width: 100%;">
+            
+            <h1>文章主标题展示 (H1)</h1>
+            <p>这是一段标准的 Markdown 正文排版测试。Healock UI 的排版引擎不仅提供了舒适的阅读行高，还对<strong>加粗强调文字 (Strong)</strong> 和 <code>inline_code()</code> 进行了深度的新拟态定制。在这里，你可以感受到文字与底板完美的光影融合。</p>
+            
+            <h2>二级标题 (H2) 带有底部分割线</h2>
+            <p>在新拟态的视觉系统里，分割线不再是简单的实心线，而是页面上的物理凹槽。列表也具备良好的缩进与纵向阅读体验。</p>
+            
+            <ul>
+                <li>这是无序列表的第一项内容。</li>
+                <li>在新拟态中，列表可以用来归纳整理 <code>Neumorphism</code> 核心参数。</li>
+                <li>所有的字体颜色都会在夜间模式下<strong>自动降低对比度</strong>，以达到护眼的效果。</li>
+            </ul>
+
+            <blockquote>
+                <p>“Design is not just what it looks like and feels like. Design is how it works.”</p>
+                <p>引用块 (Blockquote) 被设计成了深深的凹槽容器，左侧带有主题色玉石绿的指示条。看起来就像是从主面板上雕刻出来的专属阅读区，非常具有纵深感。</p>
+            </blockquote>
+
+            <hr>
+
+            <h3>数据表格呈现 (H3)</h3>
+            <p>表格在博客中通常用于对比数据。在 Healock UI 中，整个表格的外壳是一个巨大的下沉水池，而表头则是水面上的平地，数据阅读起来非常有层次感。</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component (组件)</th>
+                        <th>Class (类名)</th>
+                        <th>Status (状态)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Button 按钮</td>
+                        <td><code>.neu-btn</code></td>
+                        <td><strong>Stable</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Avatar 头像</td>
+                        <td><code>.neu-avatar</code></td>
+                        <td>Active</td>
+                    </tr>
+                    <tr>
+                        <td>Tag 标签</td>
+                        <td><code>.neu-tag-sm</code></td>
+                        <td><strong>Hovered</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <hr>
+
+            <h3>多媒体与图像 (Images)</h3>
+            <p>Markdown 解析出的原生图片标签被直接加上了相框效果和悬浮阴影，它会乖乖地待在容器内，并保持极佳的立体感：</p>
+            <img src="https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="测试图片">
+
+            <h3>任务列表 (Task Lists)</h3>
+            <p>普通的无序列表可以用于展示要点，而带有状态的任务列表已经被完全“新拟态化”：</p>
+            <ul class="contains-task-list">
+                <li class="task-list-item">
+                    <input type="checkbox" checked disabled> 
+                    <span>完成 Healock UI 核心光影引擎构建</span>
+                </li>
+                <li class="task-list-item">
+                    <input type="checkbox" checked disabled> 
+                    <span>解决 Markdown 表格与引用块的材质冲突</span>
+                </li>
+                <li class="task-list-item">
+                    <input type="checkbox" disabled> 
+                    <span>准备着手开发博客的文章卡片瀑布流布局</span>
+                </li>
+            </ul>
+            <p>这是一段 <strong>加粗强调的文字</strong>，而这是一个 <a href="#">点击跳转的链接</a>，现在它们泾渭分明了。</p>
+            <h3>折叠抽屉 (Details Panel)</h3>
+            <p>在长文章中，我们经常需要把一些次要内容或大段的代码折叠起来。这个原生的 details 标签被设计成了一个坚固的物理抽屉：</p>
+            
+            <details>
+                <summary>点击拉开这个神秘的抽屉</summary>
+                <p>抽屉内部依然支持<strong>完整的 Markdown 语法</strong>。你可以在里面放置行内代码 <code>console.log()</code>、引用块，甚至是另一张图片。</p>
+                <blockquote>
+                    <p>嵌套的引用块在这个相对封闭的空间里显得非常精致。</p>
+                </blockquote>
+            </details>
+        </div>
+    </div>
+
+    <script>
+        // 初始化代码高亮
+        hljs.highlightAll();
+
+        // 日夜模式切换
+        const toggle = document.getElementById('themeToggle');
+        toggle.addEventListener('change', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+    </script>
+
+</body>
+</html>

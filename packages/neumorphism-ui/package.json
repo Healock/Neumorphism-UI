@@ -1,0 +1,102 @@
+{
+  "name": "@healock/neumorphism-ui",
+  "version": "1.0.0-beta.1",
+  "description": "Accessible neumorphism utilities and Vue 3 components for Vite.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Healock",
+  "homepage": "https://github.com/Healock/Neumorphism-UI#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Healock/Neumorphism-UI.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Healock/Neumorphism-UI/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist",
+    "src/styles",
+    "LICENSE",
+    "OFL.txt",
+    "README.md"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./preset": {
+      "types": "./dist/preset.d.ts",
+      "import": "./dist/preset.js"
+    },
+    "./theme": {
+      "types": "./dist/theme.d.ts",
+      "import": "./dist/theme.js"
+    },
+    "./style.css": {
+      "types": "./src/styles/entrypoints.d.ts",
+      "default": "./src/styles/style.css"
+    },
+    "./core.css": {
+      "types": "./src/styles/entrypoints.d.ts",
+      "default": "./src/styles/core.css"
+    },
+    "./fonts.css": {
+      "types": "./src/styles/entrypoints.d.ts",
+      "default": "./src/styles/fonts.css"
+    },
+    "./content.css": {
+      "types": "./src/styles/entrypoints.d.ts",
+      "default": "./src/styles/content.css"
+    },
+    "./highlight.css": {
+      "types": "./src/styles/entrypoints.d.ts",
+      "default": "./src/styles/highlight.css"
+    },
+    "./legacy.css": {
+      "types": "./src/styles/entrypoints.d.ts",
+      "default": "./src/styles/legacy.css"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "vite build",
+    "typecheck": "vue-tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "pack:check": "vite build && publint && attw --pack . --profile esm-only"
+  },
+  "peerDependencies": {
+    "vue": ">=3.4.0"
+  },
+  "dependencies": {
+    "@fontsource/noto-sans-sc": "5.2.9",
+    "reka-ui": "2.10.0"
+  },
+  "devDependencies": {
+    "@microsoft/api-extractor": "7.58.9",
+    "@types/node": "24.10.1",
+    "@unocss/core": "66.7.2",
+    "@vitejs/plugin-vue": "6.0.7",
+    "@vue/test-utils": "2.4.11",
+    "@vitest/coverage-v8": "4.1.9",
+    "axe-core": "4.12.1",
+    "jsdom": "29.1.1",
+    "unocss": "66.7.2",
+    "vite": "8.1.0",
+    "vite-plugin-dts": "5.0.3",
+    "vitest": "4.1.9",
+    "vue": "3.5.38",
+    "vue-tsc": "3.1.4"
+  }
+}

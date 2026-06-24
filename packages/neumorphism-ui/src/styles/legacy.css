@@ -1,0 +1,44 @@
+@import "./core.css";
+
+@layer neu.legacy {
+  :root {
+    --bg-color: var(--neu-bg);
+    --text-main: var(--neu-text);
+    --text-sub: var(--neu-text-muted);
+    --color-primary: var(--neu-primary);
+    --color-danger: var(--neu-danger);
+    --color-warning: var(--neu-warning);
+    --color-info: var(--neu-info);
+    --shadow-light: var(--neu-shadow-light);
+    --shadow-dark: var(--neu-shadow-dark);
+    --radius-box: var(--neu-radius-lg);
+    --radius-round: var(--neu-radius-round);
+    --radius-sm: var(--neu-radius-sm);
+    --neu-shadow: var(--neu-shadow-md);
+  }
+
+  body.dark-mode { color-scheme: dark; }
+  body.dark-mode,
+  .dark-mode {
+    --neu-bg: #292b31;
+    --neu-text: #e1e5ed;
+    --neu-text-muted: #b2bac8;
+    --neu-primary: #72d2ad;
+    --neu-on-primary: #11251e;
+    --neu-shadow-light: #373a43;
+    --neu-shadow-dark: #1b1d22;
+  }
+
+  :where(.neu-card-convex, .neu-card-concave, .neu-card-inset) {
+    padding: 1.5rem;
+    border-radius: var(--neu-radius-lg);
+    color: var(--neu-text);
+  }
+  .neu-card-convex { background: var(--neu-gradient-convex); box-shadow: var(--neu-shadow-md); }
+  .neu-card-concave { background: var(--neu-gradient-concave); box-shadow: var(--neu-shadow-md); }
+  .neu-card-inset { background: var(--neu-bg); box-shadow: var(--neu-shadow-inset); }
+  .neu-btn-sm, .neu-tag-sm, .neu-size-sm { --neu-legacy-size: sm; }
+  .neu-btn-lg, .neu-tag-lg, .neu-size-lg { --neu-legacy-size: lg; }
+  .neu-title { color: var(--neu-text); font-family: var(--neu-font-sans); font-weight: 700; }
+  .neu-text-sub { color: var(--neu-text-muted); }
+}

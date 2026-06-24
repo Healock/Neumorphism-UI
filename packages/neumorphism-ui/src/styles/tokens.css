@@ -1,0 +1,56 @@
+@layer neu.tokens {
+  :root,
+  [data-neu-theme="light"] {
+    color-scheme: light;
+    --neu-bg: #ebecf0;
+    --neu-bg-glass: rgb(235 236 240 / 78%);
+    --neu-surface-light: #f8f9fb;
+    --neu-surface-dark: #d8dbe2;
+    --neu-text: #34344f;
+    --neu-text-muted: #65657e;
+    --neu-primary: #247a5d;
+    --neu-on-primary: #ffffff;
+    --neu-danger: #a63f2a;
+    --neu-warning: #7a4d10;
+    --neu-info: #365f7b;
+    --neu-focus: #245da8;
+    --neu-shadow-light: #ffffff;
+    --neu-shadow-dark: #b7bbc7;
+    --neu-radius-sm: 0.75rem;
+    --neu-radius-md: 1.25rem;
+    --neu-radius-lg: 1.875rem;
+    --neu-radius-round: 9999px;
+    --neu-font-sans: "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
+    --neu-duration-fast: 150ms;
+    --neu-duration-normal: 280ms;
+    --neu-ease: cubic-bezier(.23, 1, .32, 1);
+    --neu-gradient-convex: linear-gradient(145deg, var(--neu-surface-light), var(--neu-surface-dark));
+    --neu-gradient-concave: linear-gradient(145deg, var(--neu-surface-dark), var(--neu-surface-light));
+    --neu-shadow-sm: -4px -4px 9px var(--neu-shadow-light), 4px 4px 9px var(--neu-shadow-dark);
+    --neu-shadow-md: -9px -9px 18px var(--neu-shadow-light), 9px 9px 18px var(--neu-shadow-dark);
+    --neu-shadow-lg: -14px -14px 28px var(--neu-shadow-light), 14px 14px 28px var(--neu-shadow-dark);
+    --neu-shadow-inset: inset 5px 5px 12px var(--neu-shadow-dark), inset -5px -5px 12px var(--neu-shadow-light);
+    --neu-shadow-float: 0 12px 34px rgb(38 42 54 / 18%);
+  }
+
+  [data-neu-theme="dark"] {
+    color-scheme: dark;
+    --neu-bg: #292b31;
+    --neu-bg-glass: rgb(41 43 49 / 82%);
+    --neu-surface-light: #33363e;
+    --neu-surface-dark: #22242a;
+    --neu-text: #e1e5ed;
+    --neu-text-muted: #b2bac8;
+    --neu-primary: #72d2ad;
+    --neu-on-primary: #11251e;
+    --neu-danger: #ff9a84;
+    --neu-warning: #f1c27d;
+    --neu-info: #9cc9e6;
+    --neu-focus: #8bbcff;
+    --neu-shadow-light: #373a43;
+    --neu-shadow-dark: #1b1d22;
+    --neu-gradient-convex: linear-gradient(145deg, var(--neu-surface-light), var(--neu-surface-dark));
+    --neu-gradient-concave: linear-gradient(145deg, var(--neu-surface-dark), var(--neu-surface-light));
+    --neu-shadow-float: 0 12px 34px rgb(0 0 0 / 42%);
+  }
+}

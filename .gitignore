@@ -1,0 +1,13 @@
+node_modules/
+dist/
+coverage/
+.vitepress/cache/
+.vitepress/dist/
+playwright-report/
+test-results/
+*.tgz
+.DS_Store
+.idea/
+.vscode/
+.env*
+!.env.example

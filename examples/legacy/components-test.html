@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healock UI - Advanced Components</title>
+    <link rel="stylesheet" href="neu-ui.css">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* 测试用的页面布局 */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* 制造页面长度，为了演示 Navbar 的毛玻璃滚动渗透效果 */
+            min-height: 200vh; 
+        }
+
+        .showcase-container {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        
+        /* 只是为了辅助说明的标签 */
+        .demo-label {
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--text-sub);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body class="has-navbar">
+
+    <nav class="neu-navbar">
+        <div class="neu-title" style="margin-bottom: 0; font-size: 24px; color: var(--color-primary);">
+            <i class="fas fa-cube"></i> Healock
+        </div>
+
+        <div class="neu-search-wrapper" style="width: 300px;">
+            <i class="fas fa-search neu-search-icon"></i>
+            <input type="text" class="neu-search-input" placeholder="Search blog...">
+        </div>
+
+        <div style="display: flex; gap: 25px; align-items: center;">
+            
+            <div class="neu-badge-wrapper" style="cursor: pointer; color: var(--text-main);">
+                <i class="fas fa-bell" style="font-size: 20px;"></i>
+                <span class="neu-badge dot"></span>
+            </div>
+
+            <div class="neu-dropdown-trigger">
+                <div class="neu-badge-wrapper">
+                    <div class="neu-avatar" style="--av-size: 40px; background-image: url('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80');"></div>
+                    <span class="neu-badge">12</span>
+                </div>
+                
+                <div class="neu-dropdown-menu">
+                    <a href="#" class="neu-dropdown-item"><i class="fas fa-user"></i> 个人中心</a>
+                    <a href="#" class="neu-dropdown-item"><i class="fas fa-cog"></i> 博客设置</a>
+                    <div style="height: 1px; background: rgba(0,0,0,0.05); margin: 5px 0;"></div>
+                    <a href="#" class="neu-dropdown-item" style="color: var(--color-danger);"><i class="fas fa-sign-out-alt"></i> 退出登录</a>
+                </div>
+            </div>
+
+            <label class="neu-switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="neu-slider"></span>
+            </label>
+            
+        </div>
+    </nav>
+
+    <div class="showcase-container">
+        
+        <h1 class="neu-title" style="text-align: center; font-size: 36px;">Advanced Components</h1>
+        <p class="neu-text-sub" style="text-align: center; margin-bottom: 40px;">
+            向下滚动页面，观察后方图片透过顶部导航栏产生的<br><strong>毛玻璃（Glassmorphism）</strong>光学折射效果。
+        </p>
+
+        <div class="neu-card">
+            <div class="demo-label">Admonitions (提示面板)</div>
+            
+            <div class="neu-alert info">
+                <i class="fas fa-info-circle neu-alert-icon"></i>
+                <div>
+                    <strong style="display:block; margin-bottom: 5px; color: var(--text-main);">信息提示 (Info)</strong>
+                    <span style="font-size: 14px; color: var(--text-sub);">这是一个温润的微凹槽面板，适合用来在文章中插入扩展阅读或次要的说明信息。</span>
+                </div>
+            </div>
+
+            <div class="neu-alert warning">
+                <i class="fas fa-exclamation-triangle neu-alert-icon"></i>
+                <div>
+                    <strong style="display:block; margin-bottom: 5px; color: var(--text-main);">警告注意 (Warning)</strong>
+                    <span style="font-size: 14px; color: var(--text-sub);">使用了莫兰迪色系中的焦糖土黄，警示用户但不刺眼。</span>
+                </div>
+            </div>
+
+            <div class="neu-alert danger">
+                <i class="fas fa-times-circle neu-alert-icon"></i>
+                <div>
+                    <strong style="display:block; margin-bottom: 5px; color: var(--text-main);">危险操作 (Danger)</strong>
+                    <span style="font-size: 14px; color: var(--text-sub);">如果在博客后台点击了删除文章，可能会弹出这种样式的红色微凹警告。</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="neu-card-concave">
+            <div class="demo-label">Scroll to test Glassmorphism</div>
+            <p style="color: var(--text-sub); margin-bottom: 20px;">
+                当这组色彩鲜艳的图片被滚到页面顶部时，顶部的导航栏会把它们变成极其优雅的模糊磨砂色彩。这就是结合了新拟态阴影与玻璃态模糊的终极材质。
+            </p>
+            <div class="neu-image-frame" style="margin-bottom: 20px;">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop" alt="Abstract Art">
+            </div>
+            
+            <div class="flex-row">
+                <button class="neu-btn neu-btn-lg">继续向下滚动</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const toggle = document.getElementById('themeToggle');
+        toggle.addEventListener('change', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+    </script>
+</body>
+</html>

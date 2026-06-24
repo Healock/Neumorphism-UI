@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Morandi Code Highlight Test</title>
+    <link rel="stylesheet" href="neu-ui.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            gap: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div style="display: flex; gap: 15px; align-items: center;">
+        <span class="neu-text-sub">日夜模式切换：</span>
+        <label class="neu-switch">
+            <input type="checkbox" id="themeToggle">
+            <span class="neu-slider"></span>
+        </label>
+    </div>
+
+    <div class="neu-card" style="width: 90%; max-width: 700px;">
+        <h2 class="neu-title" style="font-size: 22px; text-align: left;">JavaScript 高亮测试</h2>
+        
+        <pre class="neu-code-block"><code class="language-javascript">
+/**
+ * Healock UI - Morandi Theme Initialization
+ * Designed for Neumorphism
+ */
+import { UI } from '@healock/core';
+
+class CodeHighlighter {
+    constructor(themeName) {
+        this.theme = themeName || 'morandi';
+        this.isActive = true;
+        this.version = 1.0;
+    }
+
+    // Initialize the highlight magic
+    renderCode(element) {
+        if (!element) return false;
+        
+        const settings = {
+            colors: ['#7b88a1', '#7a9c86', '#c28b7b'],
+            style: "neumorphism"
+        };
+        
+        console.log(`Loading theme: ${this.theme}`);
+        return Object.assign({}, settings, { rendered: true });
+    }
+}
+
+const highlighter = new CodeHighlighter('morandi-dark');
+highlighter.renderCode(document.body);
+        </code></pre>
+    </div>
+
+    <script>
+        // 让 highlight.js 渲染页面里所有的 <code> 标签
+        hljs.highlightAll();
+
+        // 日夜模式切换
+        const toggle = document.getElementById('themeToggle');
+        toggle.addEventListener('change', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+    </script>
+</body>
+</html>

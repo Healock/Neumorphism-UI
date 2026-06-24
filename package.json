@@ -1,0 +1,41 @@
+{
+  "name": "neumorphism-ui-workspace",
+  "private": true,
+  "version": "0.0.0",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "packageManager": "pnpm@10.12.1",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "build": "pnpm --filter @healock/neumorphism-ui build && pnpm --filter docs build && pnpm --filter playground build",
+    "dev": "pnpm --filter playground dev",
+    "docs:dev": "pnpm --filter docs dev",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm --filter @healock/neumorphism-ui test",
+    "test:coverage": "pnpm --filter @healock/neumorphism-ui test:coverage",
+    "test:e2e": "playwright test",
+    "test:consumer": "node scripts/verify-tarball.mjs",
+    "lint": "eslint .",
+    "pack:check": "pnpm --filter @healock/neumorphism-ui pack:check",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "pnpm build && changeset publish"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "0.18.4",
+    "@axe-core/playwright": "4.12.1",
+    "@changesets/cli": "2.31.0",
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.61.1",
+    "@types/node": "24.10.1",
+    "eslint": "10.5.0",
+    "eslint-plugin-vue": "10.9.2",
+    "publint": "0.3.21",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.62.0"
+  }
+}

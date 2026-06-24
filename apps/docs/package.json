@@ -1,0 +1,20 @@
+{
+  "name": "docs",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@healock/neumorphism-ui": "file:../../packages/neumorphism-ui",
+    "vitepress": "1.6.4",
+    "vue": "3.5.38"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "vue-tsc": "3.1.4"
+  }
+}

@@ -1,0 +1,13 @@
+@layer neu.content {
+  .neu-content {
+    color: var(--neu-text);
+    font: 400 1rem/1.8 var(--neu-font-sans);
+  }
+  .neu-content :where(h1, h2, h3, h4) { line-height: 1.25; margin: 1.6em 0 .7em; }
+  .neu-content :where(a) { color: var(--neu-primary); text-underline-offset: .2em; }
+  .neu-content :where(code) { padding: .12em .35em; border-radius: .35rem; box-shadow: var(--neu-shadow-inset); }
+  .neu-content :where(blockquote) { margin-inline: 0; padding: 1rem 1.25rem; border-left: 4px solid var(--neu-primary); border-radius: var(--neu-radius-md); box-shadow: var(--neu-shadow-sm); }
+  .neu-content :where(table) { width: 100%; border-collapse: separate; border-spacing: 0; overflow: hidden; border-radius: var(--neu-radius-md); box-shadow: var(--neu-shadow-inset); }
+  .neu-content :where(th, td) { padding: .75rem 1rem; border-bottom: 1px solid color-mix(in srgb, var(--neu-text-muted) 25%, transparent); text-align: left; }
+  .neu-content :where(img) { max-width: 100%; border-radius: var(--neu-radius-md); box-shadow: var(--neu-shadow-md); }
+}
