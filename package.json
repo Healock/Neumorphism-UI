@@ -17,7 +17,7 @@
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm --filter @healock/neumorphism-ui test",
     "test:coverage": "pnpm --filter @healock/neumorphism-ui test:coverage",
-    "test:e2e": "playwright test",
+    "test:e2e": "pnpm --filter @healock/neumorphism-ui build && playwright test",
     "test:consumer": "node scripts/verify-tarball.mjs",
     "lint": "eslint .",
     "pack:check": "pnpm --filter @healock/neumorphism-ui pack:check",
