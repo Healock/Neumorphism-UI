@@ -11,6 +11,11 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "types": ["node"]
+    "types": ["node"],
+    "paths": {
+      "@healock/neumorphism-ui": ["./packages/neumorphism-ui/src/index.ts"],
+      "@healock/neumorphism-ui/preset": ["./packages/neumorphism-ui/src/preset.ts"],
+      "@healock/neumorphism-ui/theme": ["./packages/neumorphism-ui/src/theme.ts"]
+    }
   }
 }
