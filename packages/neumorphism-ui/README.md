@@ -3,7 +3,7 @@
 Accessible neumorphism utilities and Vue 3 components for Vite.
 
 ```bash
-pnpm add @healock/neumorphism-ui
+pnpm add @healock/neumorphism-ui@beta
 pnpm add -D unocss
 ```
 

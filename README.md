@@ -5,7 +5,7 @@ Vue 3 组件与 UnoCSS 工具类组成的无障碍神经拟态设计系统。
 ## 安装
 
 ```bash
-pnpm add @healock/neumorphism-ui
+pnpm add @healock/neumorphism-ui@beta
 pnpm add -D unocss
 ```
 

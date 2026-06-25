@@ -1,7 +1,7 @@
 # 开始使用
 
 ```bash
-pnpm add @healock/neumorphism-ui
+pnpm add @healock/neumorphism-ui@beta
 pnpm add -D unocss
 ```
 

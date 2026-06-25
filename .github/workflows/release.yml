@@ -21,6 +21,57 @@ jobs:
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
+      - name: Validate release metadata
+        working-directory: packages/neumorphism-ui
+        run: |
+          version=$(node -p "require('./package.json').version")
+          expected_tag="v${version}"
+          release_tag="${{ github.event.release.tag_name }}"
+          release_prerelease="${{ github.event.release.prerelease }}"
+
+          if [ "${release_tag}" != "${expected_tag}" ]; then
+            echo "Release tag ${release_tag} does not match package version ${expected_tag}."
+            exit 1
+          fi
+
+          if [[ "${version}" == *-* && "${release_prerelease}" != "true" ]]; then
+            echo "Prerelease package version ${version} must be published as a GitHub prerelease."
+            exit 1
+          fi
+      - name: Check existing npm package
+        id: published
+        working-directory: packages/neumorphism-ui
+        run: |
+          package_name=$(node -p "require('./package.json').name")
+          version=$(node -p "require('./package.json').version")
+          published_json="${RUNNER_TEMP}/published.json"
+
+          if ! npm view "${package_name}@${version}" --json > "${published_json}" 2>/dev/null; then
+            echo "exists=false" >> "${GITHUB_OUTPUT}"
+            exit 0
+          fi
+
+          git_head=$(node -e "const p = require(process.argv[1]); console.log(p.gitHead || '')" "${published_json}")
+          npm_user=$(node -e "const p = require(process.argv[1]); console.log(p._npmUser || '')" "${published_json}")
+          provenance=$(node -e "const p = require(process.argv[1]); console.log(Boolean(p.dist?.attestations?.provenance?.predicateType))" "${published_json}")
+
+          if [ "${git_head}" != "${GITHUB_SHA}" ]; then
+            echo "${package_name}@${version} already exists with gitHead ${git_head}, expected ${GITHUB_SHA}."
+            exit 1
+          fi
+
+          if [ "${npm_user}" != "GitHub Actions <npm-oidc-no-reply@github.com>" ]; then
+            echo "${package_name}@${version} already exists but was not published by GitHub Actions OIDC."
+            exit 1
+          fi
+
+          if [ "${provenance}" != "true" ]; then
+            echo "${package_name}@${version} already exists without npm provenance."
+            exit 1
+          fi
+
+          echo "${package_name}@${version} is already published from this commit with provenance."
+          echo "exists=true" >> "${GITHUB_OUTPUT}"
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm typecheck
@@ -32,9 +83,10 @@ jobs:
       - run: pnpm test:consumer
       - run: npm install --global npm@11.17.0
       - name: Publish package
+        if: steps.published.outputs.exists != 'true'
         run: |
           version=$(node -p "require('./package.json').version")
           tag=$(node -p "const version = require('./package.json').version; version.includes('-') ? version.split('-')[1].split('.')[0] : 'latest'")
           echo "Publishing ${version} with dist-tag ${tag}"
-          npm publish --tag "${tag}"
+          npm publish --tag "${tag}" --provenance
         working-directory: packages/neumorphism-ui
