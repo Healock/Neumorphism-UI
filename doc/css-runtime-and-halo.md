@@ -59,11 +59,26 @@ import '@healock/neumorphism-ui/style.css'
 
 `neu-ui.css` 是迁移入口，面向历史上直接使用 `https://cdn.healock.cc/css/neu-ui.css` 的项目。它会提供字体、核心样式、旧变量/旧 class 兼容层、正文排版和代码高亮样式。
 
+如果宿主项目已经有自己的字体策略，使用不带字体的完整聚合入口：
+
+```css
+@import "@healock/neumorphism-ui/neu-ui-no-fonts.css";
+```
+
+它提供核心样式、旧变量/旧 class 兼容层、正文排版和代码高亮样式，但不会导入 `fonts.css`，因此不会在 Vite 构建中触发 `@fontsource/noto-sans-sc` 的字体分片打包。
+
 当前导入链路是：
 
 ```css
 /* neu-ui.css */
 @import "./fonts.css";
+@import "./legacy.css";
+@import "./content.css";
+@import "./highlight.css";
+```
+
+```css
+/* neu-ui-no-fonts.css */
 @import "./legacy.css";
 @import "./content.css";
 @import "./highlight.css";
@@ -103,7 +118,7 @@ import '@healock/neumorphism-ui/style.css'
 示例：
 
 ```css
-@import "@healock/neumorphism-ui/neu-ui.css";
+@import "@healock/neumorphism-ui/neu-ui-no-fonts.css";
 @import "./common/index.css";
 @import "./theme/index.css";
 ```
@@ -179,6 +194,7 @@ Vue 组件输出和普通 HTML 模板可以共享同一套 class contract。
 现在的策略能替代旧 CDN 的主要生产依赖，但还有两个边界需要保持清醒：
 
 1. 同一个 npm 包同时包含 Vue 组件和 CSS runtime。CSS-only 项目安装它时，构建期仍会安装组件依赖；运行时不会加载 Vue，除非项目自己 import JS。
-2. `neu-ui.css` 是迁移入口，不是新项目默认最佳入口。新项目更推荐模块化入口。
+2. `neu-ui.css` / `neu-ui-no-fonts.css` 是迁移入口，不是新项目默认最佳入口。新项目更推荐模块化入口。
+3. npm CSS exports 面向 Vite、PostCSS 等构建期消费；未来如果发布版本化 CDN，需要单独产出浏览器可直接 `<link>` 的构建后 CSS，并处理字体文件路径，不能简单把源码入口原样当作 CDN 成品。
 
 如果未来 CSS-only 消费方越来越多，可以考虑新增一个独立的 CSS-only 包，例如 `@healock/neumorphism-css`，但 v1 beta 阶段先用同包 CSS exports 保持维护成本最低。

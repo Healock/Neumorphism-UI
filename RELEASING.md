@@ -24,8 +24,11 @@ npm Trusted Publishing can only be configured after the package exists. To keep
 ## Normal releases
 
 1. Add a Changeset describing the public change.
-2. Run `pnpm version-packages` and review the generated version/changelog edits.
-3. Run the same local checks as CI:
+2. For beta releases, make sure Changesets is in prerelease mode or manually
+   review the version bump before publishing. Running a normal patch bump from a
+   prerelease version such as `1.0.0-beta.2` can promote it to stable `1.0.0`.
+3. Run `pnpm version-packages` and review the generated version/changelog edits.
+4. Run the same local checks as CI:
 
    ```bash
    pnpm lint
@@ -37,8 +40,8 @@ npm Trusted Publishing can only be configured after the package exists. To keep
    pnpm test:consumer
    ```
 
-4. Merge the release changes to `main`.
-5. Create and publish the matching GitHub release. npm provenance is generated
+5. Merge the release changes to `main`.
+6. Create and publish the matching GitHub release. npm provenance is generated
    automatically by Trusted Publishing for this public repository and package.
 
 Do not place a long-lived npm publish token in repository or environment

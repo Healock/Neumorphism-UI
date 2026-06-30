@@ -27,12 +27,18 @@
 @import "@healock/neumorphism-ui/neu-ui.css";
 ```
 
+这个入口会导入 `fonts.css`。如果宿主项目已经管理字体，或者不希望 Vite 把 Noto Sans SC 字体分片打入产物，使用不带字体的完整聚合入口：
+
+```css
+@import "@healock/neumorphism-ui/neu-ui-no-fonts.css";
+```
+
 ## 构建期消费
 
 主题或静态站点可以在自己的 CSS 入口中导入组件库样式：
 
 ```css
-@import "@healock/neumorphism-ui/neu-ui.css";
+@import "@healock/neumorphism-ui/neu-ui-no-fonts.css";
 @import "./common/index.css";
 @import "./theme/index.css";
 ```
@@ -60,7 +66,7 @@ Vue 项目和非 Vue 模板共享的是 CSS class contract，不共享 Vue props
 
 ## 兼容入口保留什么
 
-`neu-ui.css` 会通过 `legacy.css` 保留常见旧变量和旧 class，例如：
+`neu-ui.css` 和 `neu-ui-no-fonts.css` 都会通过 `legacy.css` 保留常见旧变量和旧 class，例如：
 
 - `--bg-color`
 - `--text-main`
@@ -76,6 +82,6 @@ Vue 项目和非 Vue 模板共享的是 CSS class contract，不共享 Vue props
 
 ## 取舍
 
-`neu-ui.css` 适合迁移旧项目；新项目更推荐模块化入口。
+`neu-ui.css` 适合需要组件库同时提供字体的迁移旧项目；`neu-ui-no-fonts.css` 适合已有字体策略的服务端模板或静态站点。新项目仍更推荐模块化入口。
 
 如果未来非 Vue 消费方很多，可以再考虑独立 CSS-only 包。当前 v1 beta 阶段，组件库先通过同一个 npm 包提供 CSS exports，保持源头统一。

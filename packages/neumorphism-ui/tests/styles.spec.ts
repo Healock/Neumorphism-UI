@@ -17,7 +17,22 @@ const cssEntries = [
   './legacy.css',
   './style.css',
   './neu-ui.css',
+  './neu-ui-no-fonts.css',
 ]
+
+function collectLocalImports(fileName: string, seen = new Set<string>()): string {
+  if (seen.has(fileName))
+    return ''
+
+  seen.add(fileName)
+  const css = readFileSync(resolve(styles, fileName), 'utf8')
+  const localImports = Array.from(css.matchAll(/@import\s+["']\.\/([^"']+)["'];/g), match => match[1])
+
+  return [
+    css,
+    ...localImports.map(imported => collectLocalImports(imported, seen)),
+  ].join('\n')
+}
 
 describe('style entrypoints', () => {
   it('exposes modular CSS runtime entrypoints for non-Vue consumers', () => {
@@ -38,6 +53,18 @@ describe('style entrypoints', () => {
     expect(readFileSync(resolve(styles, 'core.css'), 'utf8')).toContain('@import "./utilities.css";')
     expect(readFileSync(resolve(styles, 'style.css'), 'utf8')).toContain('@import "./core.css";')
     expect(readFileSync(resolve(styles, 'neu-ui.css'), 'utf8')).toContain('@import "./legacy.css";')
+    expect(readFileSync(resolve(styles, 'neu-ui-no-fonts.css'), 'utf8')).toContain('@import "./legacy.css";')
+    expect(readFileSync(resolve(styles, 'neu-ui-no-fonts.css'), 'utf8')).not.toContain('fonts.css')
+  })
+
+  it('keeps the no-fonts aggregate free of font imports through the full import graph', () => {
+    const css = collectLocalImports('neu-ui-no-fonts.css')
+    expect(css).not.toContain('@fontsource')
+    expect(css).not.toContain('@font-face')
+    expect(css).not.toContain('fonts.css')
+    expect(css).toContain('.neu-card')
+    expect(css).toContain('.neu-content')
+    expect(css).toContain('.neu-highlight')
   })
 
   it('keeps cascade layer boundaries explicit', () => {

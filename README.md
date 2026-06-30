@@ -41,6 +41,8 @@ export default defineConfig({
 
 可以全局安装 `NeumorphismUI`，也可以从包根入口按需导入 `NeuButton`、`NeuInput` 等组件。`core.css` 不加载字体；`content.css`、`highlight.css` 和 `legacy.css` 均为可选入口。
 
+非 Vue / 服务端模板项目可以直接消费 npm CSS exports。`neu-ui.css` 是带字体的完整兼容入口；`neu-ui-no-fonts.css` 是不带字体的完整兼容入口，适合已有字体策略的项目。
+
 完整文档位于 `apps/docs`。公开包采用 MIT 许可证；Noto Sans SC 采用 SIL OFL 1.1。
 
 原始 `neu-ui.css` 与静态演示页保存在 `examples/legacy/`，用于 1.x 兼容回归，不作为新组件源码入口。

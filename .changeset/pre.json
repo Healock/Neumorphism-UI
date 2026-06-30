@@ -1,0 +1,12 @@
+{
+  "mode": "pre",
+  "tag": "beta",
+  "initialVersions": {
+    "docs": "0.0.0",
+    "playground": "0.0.0",
+    "@healock/neumorphism-ui": "1.0.0-beta.2"
+  },
+  "changesets": [
+    "soft-css-runtime"
+  ]
+}

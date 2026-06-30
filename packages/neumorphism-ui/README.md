@@ -39,7 +39,8 @@ app.use(NeumorphismUI)
 Use `@healock/neumorphism-ui/core.css` to omit the bundled Noto Sans SC font,
 or import components such as `NeuButton` directly for on-demand tree-shaking.
 
-For non-Vue consumers such as Halo themes, import the CSS runtime at build time:
+For non-Vue consumers such as server templates, static pages, or Halo themes,
+import the CSS runtime at build time:
 
 ```css
 @import "@healock/neumorphism-ui/tokens.css";
@@ -49,10 +50,18 @@ For non-Vue consumers such as Halo themes, import the CSS runtime at build time:
 ```
 
 Projects replacing the historical `https://cdn.healock.cc/css/neu-ui.css`
-can use the compatibility entry:
+can use the compatibility entry with bundled font imports:
 
 ```css
 @import "@healock/neumorphism-ui/neu-ui.css";
+```
+
+If the host project already owns its font strategy, use the no-fonts aggregate
+instead. It keeps the same core, compatibility, content, and highlight layers,
+but does not import `fonts.css` or Fontsource:
+
+```css
+@import "@healock/neumorphism-ui/neu-ui-no-fonts.css";
 ```
 
 Import that file during your app/theme build and ship the generated CSS with

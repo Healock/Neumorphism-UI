@@ -63,4 +63,4 @@ import { NeuButton, NeuCard } from '@healock/neumorphism-ui'
 @import "@healock/neumorphism-ui/components.css";
 ```
 
-历史上依赖 `neu-ui.css` 的项目可以用 `@healock/neumorphism-ui/neu-ui.css` 作为迁移入口。
+历史上依赖 `neu-ui.css` 的项目可以用 `@healock/neumorphism-ui/neu-ui.css` 作为带字体迁移入口；如果宿主项目已经有自己的字体策略，改用 `@healock/neumorphism-ui/neu-ui-no-fonts.css`。

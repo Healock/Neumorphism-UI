@@ -1,6 +1,6 @@
 {
   "name": "@healock/neumorphism-ui",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "Accessible neumorphism CSS runtime, utilities, and Vue 3 components for Vite.",
   "type": "module",
   "license": "MIT",
@@ -50,6 +50,10 @@
     "./neu-ui.css": {
       "types": "./src/styles/entrypoints.d.ts",
       "default": "./src/styles/neu-ui.css"
+    },
+    "./neu-ui-no-fonts.css": {
+      "types": "./src/styles/entrypoints.d.ts",
+      "default": "./src/styles/neu-ui-no-fonts.css"
     },
     "./tokens.css": {
       "types": "./src/styles/entrypoints.d.ts",

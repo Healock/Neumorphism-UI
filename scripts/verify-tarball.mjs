@@ -16,6 +16,7 @@ const rootDir = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const packageDir = join(rootDir, 'packages', 'neumorphism-ui')
 const tempDir = mkdtempSync(join(tmpdir(), 'neumorphism-ui-consumer-'))
 const consumerDir = join(tempDir, 'consumer')
+const cssConsumerDir = join(tempDir, 'css-consumer')
 const nodeDir = dirname(process.execPath)
 const pnpmCli = join(nodeDir, 'node_modules', 'corepack', 'dist', 'pnpm.js')
 const npmCli = join(nodeDir, 'node_modules', 'npm', 'bin', 'npm-cli.js')
@@ -64,10 +65,18 @@ function runNpm(args, cwd) {
   })
 }
 
-function write(relativePath, content) {
-  const target = join(consumerDir, relativePath)
+function writeTo(baseDir, relativePath, content) {
+  const target = join(baseDir, relativePath)
   mkdirSync(dirname(target), { recursive: true })
   writeFileSync(target, content)
+}
+
+function write(relativePath, content) {
+  writeTo(consumerDir, relativePath, content)
+}
+
+function writeCssConsumer(relativePath, content) {
+  writeTo(cssConsumerDir, relativePath, content)
 }
 
 try {
@@ -173,6 +182,42 @@ const name = ref('Healock')
   if (javascriptBytes > 150_000) {
     throw new Error(
       `on-demand consumer emitted ${javascriptBytes} bytes of JavaScript; tree-shaking limit is 150000`,
+    )
+  }
+
+  mkdirSync(cssConsumerDir)
+  writeCssConsumer('package.json', `${JSON.stringify({
+    name: 'neumorphism-ui-css-runtime-smoke',
+    private: true,
+    type: 'module',
+    scripts: {
+      build: 'vite build',
+    },
+    dependencies: {
+      '@healock/neumorphism-ui': `file:${tarballPath}`,
+    },
+    devDependencies: {
+      'vite': '8.1.0',
+    },
+  }, null, 2)}\n`)
+  writeCssConsumer('index.html', `<link rel="stylesheet" href="/src/main.css">
+<main class="neu-card neu-surface--flat">
+  CSS runtime smoke
+</main>
+`)
+  writeCssConsumer('src/main.css', `@import "@healock/neumorphism-ui/neu-ui-no-fonts.css";
+`)
+
+  runNpm(['install', '--ignore-scripts', '--no-audit', '--no-fund'], cssConsumerDir)
+  runNpm(['run', 'build'], cssConsumerDir)
+
+  const cssAssetDir = join(cssConsumerDir, 'dist', 'assets')
+  const fontAssets = existsSync(cssAssetDir)
+    ? readdirSync(cssAssetDir).filter(name => /(?:noto-sans-sc|\.woff2?$)/i.test(name))
+    : []
+  if (fontAssets.length > 0) {
+    throw new Error(
+      `no-fonts CSS runtime emitted font assets: ${fontAssets.slice(0, 5).join(', ')}`,
     )
   }
 
