@@ -1,7 +1,7 @@
 {
   "name": "@healock/neumorphism-ui",
-  "version": "1.0.0-beta.1",
-  "description": "Accessible neumorphism utilities and Vue 3 components for Vite.",
+  "version": "1.0.0-beta.2",
+  "description": "Accessible neumorphism CSS runtime, utilities, and Vue 3 components for Vite.",
   "type": "module",
   "license": "MIT",
   "author": "Healock",
@@ -47,13 +47,37 @@
       "types": "./src/styles/entrypoints.d.ts",
       "default": "./src/styles/style.css"
     },
+    "./neu-ui.css": {
+      "types": "./src/styles/entrypoints.d.ts",
+      "default": "./src/styles/neu-ui.css"
+    },
+    "./tokens.css": {
+      "types": "./src/styles/entrypoints.d.ts",
+      "default": "./src/styles/tokens.css"
+    },
+    "./base.css": {
+      "types": "./src/styles/entrypoints.d.ts",
+      "default": "./src/styles/base.css"
+    },
     "./core.css": {
       "types": "./src/styles/entrypoints.d.ts",
       "default": "./src/styles/core.css"
     },
+    "./components.css": {
+      "types": "./src/styles/entrypoints.d.ts",
+      "default": "./src/styles/components.css"
+    },
+    "./utilities.css": {
+      "types": "./src/styles/entrypoints.d.ts",
+      "default": "./src/styles/utilities.css"
+    },
     "./fonts.css": {
       "types": "./src/styles/entrypoints.d.ts",
       "default": "./src/styles/fonts.css"
+    },
+    "./fonts-block.css": {
+      "types": "./src/styles/entrypoints.d.ts",
+      "default": "./src/styles/fonts-block.css"
     },
     "./content.css": {
       "types": "./src/styles/entrypoints.d.ts",
@@ -62,6 +86,10 @@
     "./highlight.css": {
       "types": "./src/styles/entrypoints.d.ts",
       "default": "./src/styles/highlight.css"
+    },
+    "./view-transition.css": {
+      "types": "./src/styles/entrypoints.d.ts",
+      "default": "./src/styles/view-transition.css"
     },
     "./legacy.css": {
       "types": "./src/styles/entrypoints.d.ts",
@@ -77,7 +105,13 @@
     "pack:check": "vite build && publint && attw --pack . --profile esm-only"
   },
   "peerDependencies": {
+    "@unocss/core": ">=66.0.0",
     "vue": ">=3.4.0"
+  },
+  "peerDependenciesMeta": {
+    "@unocss/core": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@fontsource/noto-sans-sc": "5.2.9",

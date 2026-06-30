@@ -36,21 +36,63 @@ export const NeuButton = defineComponent({
     size: sizeProp,
     loading: Boolean,
     disabled: Boolean,
+    href: String,
+    target: String,
+    rel: String,
     type: { type: String as PropType<'button' | 'submit' | 'reset'>, default: 'button' },
   },
   emits: ['click'],
   setup(props, { attrs, emit, slots }) {
-    return () => h('button', {
-      ...attrs,
-      type: props.type,
-      disabled: props.disabled || props.loading,
-      class: ['neu-btn', `neu-btn--${props.variant}`, `neu-size--${props.size}`, attrs.class],
-      'aria-busy': props.loading || undefined,
-      onClick: (event: MouseEvent) => emit('click', event),
-    }, [
+    const content = () => [
       props.loading ? h('span', { class: 'neu-spinner', 'aria-hidden': 'true' }) : slots.icon?.(),
       h('span', { class: 'neu-btn__label' }, slots.default?.()),
-    ])
+    ]
+
+    return () => {
+      const isDisabled = props.disabled || props.loading
+      const className = [
+        'neu-btn',
+        `neu-btn--${props.variant}`,
+        `neu-size--${props.size}`,
+        { 'is-disabled': isDisabled },
+        attrs.class,
+      ]
+
+      const onClick = (event: MouseEvent) => {
+        if (isDisabled) {
+          event.preventDefault()
+          event.stopPropagation()
+          return
+        }
+
+        emit('click', event)
+      }
+
+      if (props.href) {
+        const rel = props.rel ?? (props.target === '_blank' ? 'noopener noreferrer' : undefined)
+
+        return h('a', {
+          ...attrs,
+          href: isDisabled ? undefined : props.href,
+          target: props.target,
+          rel,
+          class: className,
+          'aria-busy': props.loading || undefined,
+          'aria-disabled': isDisabled || undefined,
+          tabindex: isDisabled ? -1 : attrs.tabindex,
+          onClick,
+        }, content())
+      }
+
+      return h('button', {
+        ...attrs,
+        type: props.type,
+        disabled: isDisabled,
+        class: className,
+        'aria-busy': props.loading || undefined,
+        onClick,
+      }, content())
+    }
   },
 })
 
@@ -436,6 +478,17 @@ export interface NeuTabItem {
   disabled?: boolean
 }
 
+export interface NeuNavPillItem {
+  value: string
+  label: string
+  href?: string
+  target?: string
+  rel?: string
+  disabled?: boolean
+  current?: boolean
+  ariaLabel?: string
+}
+
 export const NeuTabs = defineComponent({
   name: 'NeuTabs',
   props: {
@@ -452,12 +505,15 @@ export const NeuTabs = defineComponent({
       'onUpdate:modelValue': (value: string | number) => emit('update:modelValue', String(value)),
     }, {
       default: () => [
-        h(TabsList, { class: 'neu-tabs__list', 'aria-label': 'Tabs' }, {
-          default: () => props.items.map(item => h(TabsTrigger, {
-            class: 'neu-tabs__trigger',
+        h(TabsList, { asChild: true, 'aria-label': 'Tabs' }, {
+          default: () => h('div', { class: 'neu-tabs__list' }, props.items.map(item => h(TabsTrigger, {
+            asChild: true,
             value: item.value,
             disabled: item.disabled,
-          }, () => item.label)),
+          }, () => h('button', {
+            class: 'neu-tabs__trigger',
+            type: 'button',
+          }, item.label)))),
         }),
         ...(slots.default
           ? slots.default()
@@ -518,6 +574,78 @@ export const NeuDropdownItem = defineComponent({
       disabled: props.disabled,
       onSelect: (event: Event) => emit('select', event),
     }, slots)
+  },
+})
+
+export const NeuNavPills = defineComponent({
+  name: 'NeuNavPills',
+  inheritAttrs: false,
+  props: {
+    items: { type: Array as PropType<NeuNavPillItem[]>, default: () => [] },
+    modelValue: String,
+    label: { type: String, default: 'Navigation' },
+    size: sizeProp,
+    tag: { type: String, default: 'nav' },
+    marker: { type: Boolean, default: true },
+  },
+  emits: ['update:modelValue', 'select'],
+  setup(props, { attrs, emit, slots }) {
+    const isCurrent = (item: NeuNavPillItem) =>
+      props.modelValue === undefined ? Boolean(item.current) : props.modelValue === item.value
+
+    const renderContent = (item: NeuNavPillItem, current: boolean) =>
+      slots.item?.({ item, current }) ?? h('span', { class: 'neu-nav-pill__label' }, item.label)
+
+    const onSelect = (item: NeuNavPillItem, event: MouseEvent) => {
+      if (item.disabled) {
+        event.preventDefault()
+        event.stopPropagation()
+        return
+      }
+
+      emit('update:modelValue', item.value)
+      emit('select', item, event)
+    }
+
+    return () => h(props.tag, {
+      ...attrs,
+      class: [
+        'neu-nav-pills',
+        `neu-size--${props.size}`,
+        { 'neu-nav-pills--no-marker': !props.marker },
+        attrs.class,
+      ],
+      'aria-label': props.label,
+    }, h('div', { class: 'neu-nav-pills__list' }, props.items.map(item => {
+      const current = isCurrent(item)
+      const className = ['neu-nav-pill', { 'is-active': current, 'is-disabled': item.disabled }]
+      const commonProps = {
+        key: item.value,
+        class: className,
+        'aria-current': current ? 'page' : undefined,
+        'aria-disabled': item.disabled || undefined,
+        'aria-label': item.ariaLabel,
+        tabindex: item.disabled ? -1 : undefined,
+        onClick: (event: MouseEvent) => onSelect(item, event),
+      }
+
+      if (item.href) {
+        const rel = item.rel ?? (item.target === '_blank' ? 'noopener noreferrer' : undefined)
+
+        return h('a', {
+          ...commonProps,
+          href: item.disabled ? undefined : item.href,
+          target: item.target,
+          rel,
+        }, renderContent(item, current))
+      }
+
+      return h('button', {
+        ...commonProps,
+        type: 'button',
+        disabled: item.disabled,
+      }, renderContent(item, current))
+    })))
   },
 })
 

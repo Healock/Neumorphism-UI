@@ -12,6 +12,8 @@ export default tseslint.config(
       '**/.vitepress/dist/**',
       '**/playwright-report/**',
       '**/test-results/**',
+      'registry-consumer-check/**',
+      'report/**',
     ],
   },
   eslint.configs.recommended,

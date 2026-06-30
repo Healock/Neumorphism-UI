@@ -1,10 +1,16 @@
-import type { Preset, Rule, Shortcut } from '@unocss/core'
+import type { Rule, Shortcut } from '@unocss/core'
 
 export interface PresetNeumorphismOptions {
   prefix?: string
 }
 
-export function presetNeumorphism(options: PresetNeumorphismOptions = {}): Preset {
+export interface NeumorphismPreset {
+  name: string
+  rules: Rule[]
+  shortcuts: Shortcut[]
+}
+
+export function presetNeumorphism(options: PresetNeumorphismOptions = {}): NeumorphismPreset {
   const prefix = options.prefix ?? 'neu-'
   const rules: Rule[] = [
     [new RegExp(`^${prefix}surface-(flat|convex|concave|inset|glass)$`), ([, surface]) => ({

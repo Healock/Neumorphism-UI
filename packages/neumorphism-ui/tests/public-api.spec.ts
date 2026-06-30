@@ -24,6 +24,7 @@ const componentExports = [
   'NeuDropdown',
   'NeuDropdownItem',
   'NeuNavbar',
+  'NeuNavPills',
 ] as const
 
 describe('public API', () => {

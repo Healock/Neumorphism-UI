@@ -16,6 +16,7 @@ export default defineConfig({
         items: [
           { text: '开始使用', link: '/guide/getting-started' },
           { text: '主题', link: '/guide/theme' },
+          { text: '非 Vue / Halo 使用', link: '/guide/non-vue' },
           { text: '迁移旧版 CSS', link: '/guide/migration' },
         ],
       },

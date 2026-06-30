@@ -1,0 +1,22 @@
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+  mix-blend-mode: normal;
+  background: var(--neu-view-transition-bg, var(--neu-bg, Canvas));
+}
+
+::view-transition-group(root) {
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+  background: var(--neu-view-transition-bg, var(--neu-bg, Canvas));
+  overflow: clip;
+}
+
+::view-transition-image-pair(root) {
+  isolation: isolate;
+}

@@ -6,6 +6,7 @@ import {
   NeuCheckbox,
   NeuInput,
   NeuPagination,
+  NeuNavPills,
   NeuProgress,
   NeuRadio,
   NeuRadioGroup,
@@ -87,6 +88,81 @@ describe('interaction components', () => {
     expect(wrapper.get('button').attributes()).toMatchObject({ disabled: '', 'aria-busy': 'true' })
   })
 
+  it('can render a native link for multi-page navigation', async () => {
+    const wrapper = mount(NeuButton, {
+      props: { href: '/components', target: '_blank' },
+      slots: { default: 'Components' },
+    })
+
+    const link = wrapper.get('a')
+    expect(link.attributes()).toMatchObject({
+      href: '/components',
+      rel: 'noopener noreferrer',
+      target: '_blank',
+    })
+    expect(link.classes()).toContain('neu-btn')
+
+    await link.trigger('click')
+    expect(wrapper.emitted('click')).toHaveLength(1)
+  })
+
+  it('prevents a disabled link button from navigating', async () => {
+    const wrapper = mount(NeuButton, {
+      props: { href: '/components', loading: true },
+      slots: { default: 'Loading' },
+    })
+
+    const link = wrapper.get('a')
+    expect(link.attributes('href')).toBeUndefined()
+    expect(link.attributes('aria-disabled')).toBe('true')
+    expect(link.attributes('tabindex')).toBe('-1')
+
+    await link.trigger('click')
+    expect(wrapper.emitted('click')).toBeUndefined()
+  })
+
+  it('renders navigation pills as real links with an active page marker', async () => {
+    const wrapper = mount(NeuNavPills, {
+      props: {
+        modelValue: 'motion',
+        items: [
+          { value: 'overview', label: '首页', href: '/' },
+          { value: 'motion', label: '动效', href: '/motion' },
+        ],
+      },
+    })
+
+    const links = wrapper.findAll('a')
+    expect(links).toHaveLength(2)
+    expect(links[1].attributes()).toMatchObject({
+      href: '/motion',
+      'aria-current': 'page',
+    })
+    expect(links[1].classes()).toContain('is-active')
+
+    await links[0].trigger('click')
+    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['overview'])
+    expect(wrapper.emitted('select')?.[0][0]).toMatchObject({ value: 'overview' })
+  })
+
+  it('can render navigation pills as buttons and prevent disabled selection', async () => {
+    const wrapper = mount(NeuNavPills, {
+      props: {
+        items: [
+          { value: 'components', label: '组件' },
+          { value: 'release', label: '发布', disabled: true },
+        ],
+      },
+    })
+
+    const buttons = wrapper.findAll('button')
+    expect(buttons).toHaveLength(2)
+    expect(buttons[1].attributes('disabled')).toBeDefined()
+
+    await buttons[1].trigger('click')
+    expect(wrapper.emitted('select')).toBeUndefined()
+  })
+
   it('clamps progress and exposes native progress semantics', () => {
     const wrapper = mount(NeuProgress, { props: { value: 120, max: 100, label: 'Upload' } })
     expect(wrapper.get('[role="progressbar"]').attributes('aria-valuenow')).toBe('100')
@@ -113,6 +189,23 @@ describe('interaction components', () => {
     expect(panels).toHaveLength(2)
     expect(panels.filter(panel => panel.isVisible())).toHaveLength(1)
     expect(panels.find(panel => panel.isVisible())?.text()).toContain('First panel')
+  })
+
+  it('applies tab classes to the accessible tab buttons', () => {
+    const wrapper = mount(NeuTabs, {
+      props: {
+        modelValue: 'one',
+        items: [
+          { value: 'one', label: 'One' },
+          { value: 'two', label: 'Two' },
+        ],
+      },
+    })
+
+    const tabs = wrapper.findAll('[role="tab"]')
+    expect(tabs).toHaveLength(2)
+    expect(tabs[0].classes()).toContain('neu-tabs__trigger')
+    expect(wrapper.get('[role="tablist"]').classes()).toContain('neu-tabs__list')
   })
 
   it('emits a bounded next page', async () => {

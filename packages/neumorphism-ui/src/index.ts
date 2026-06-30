@@ -9,6 +9,7 @@ import {
   NeuDropdownItem,
   NeuInput,
   NeuNavbar,
+  NeuNavPills,
   NeuPagination,
   NeuProgress,
   NeuRadio,
@@ -44,6 +45,7 @@ const components = [
   NeuDropdown,
   NeuDropdownItem,
   NeuNavbar,
+  NeuNavPills,
 ]
 
 export const NeumorphismUI: Plugin = {

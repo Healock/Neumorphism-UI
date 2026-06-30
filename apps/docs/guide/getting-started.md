@@ -53,3 +53,14 @@ import { NeuButton, NeuCard } from '@healock/neumorphism-ui'
 ```
 
 不需要内置字体时改用 `core.css`。正文、代码高亮和旧版兼容样式分别从 `content.css`、`highlight.css`、`legacy.css` 导入。
+
+如果项目不是 Vue 应用，例如 Halo Theme Neu，可以只在构建期导入 CSS：
+
+```css
+@import "@healock/neumorphism-ui/tokens.css";
+@import "@healock/neumorphism-ui/base.css";
+@import "@healock/neumorphism-ui/utilities.css";
+@import "@healock/neumorphism-ui/components.css";
+```
+
+历史上依赖 `neu-ui.css` 的项目可以用 `@healock/neumorphism-ui/neu-ui.css` 作为迁移入口。

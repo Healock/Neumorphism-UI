@@ -1,0 +1,23 @@
+@layer neu.base {
+  .neu-root,
+  .neu-page,
+  .neu-theme-provider {
+    color: var(--neu-text);
+    font-family: var(--neu-font-sans);
+  }
+
+  .neu-root,
+  .neu-page {
+    min-height: 100vh;
+    background: var(--neu-bg);
+  }
+
+  .neu-root *,
+  .neu-root *::before,
+  .neu-root *::after,
+  .neu-theme-provider *,
+  .neu-theme-provider *::before,
+  .neu-theme-provider *::after {
+    box-sizing: border-box;
+  }
+}

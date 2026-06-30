@@ -3,6 +3,7 @@
 @layer neu.legacy {
   :root {
     --bg-color: var(--neu-bg);
+    --bg-color-glass: var(--neu-bg-glass);
     --text-main: var(--neu-text);
     --text-sub: var(--neu-text-muted);
     --color-primary: var(--neu-primary);
@@ -11,22 +12,54 @@
     --color-info: var(--neu-info);
     --shadow-light: var(--neu-shadow-light);
     --shadow-dark: var(--neu-shadow-dark);
+    --surface-light: var(--neu-surface-light);
+    --surface-dark: var(--neu-surface-dark);
+    --surface-light-soft: color-mix(in srgb, var(--neu-surface-light) 72%, var(--neu-bg));
+    --surface-dark-soft: color-mix(in srgb, var(--neu-surface-dark) 72%, var(--neu-bg));
+    --grad-convex: var(--neu-gradient-convex);
+    --grad-concave: var(--neu-gradient-concave);
+    --grad-concave-soft: linear-gradient(145deg, var(--surface-dark-soft), var(--surface-light-soft));
+    --glass-border: color-mix(in srgb, var(--neu-shadow-light) 50%, transparent);
+    --progress-gradient: linear-gradient(90deg, var(--neu-primary), color-mix(in srgb, var(--neu-primary) 46%, var(--neu-text-muted)));
+    --text-shadow-main: 1px 1px 1px var(--neu-shadow-light);
+    --text-shadow-none: none;
     --radius-box: var(--neu-radius-lg);
     --radius-round: var(--neu-radius-round);
     --radius-sm: var(--neu-radius-sm);
+    --transition: all var(--neu-duration-normal) var(--neu-ease);
+    --ease-bouncy: var(--neu-ease-spring);
+    --ease-smooth: var(--neu-ease);
+    --duration-normal: var(--neu-duration-normal);
+    --duration-slow: var(--neu-duration-slow);
+    --font-sans: var(--neu-font-sans);
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --neu-shadow: var(--neu-shadow-md);
   }
 
-  body.dark-mode { color-scheme: dark; }
+  html.dark,
   body.dark-mode,
   .dark-mode {
+    color-scheme: dark;
     --neu-bg: #292b31;
+    --neu-bg-glass: rgb(41 43 49 / 82%);
+    --neu-surface-light: #33363e;
+    --neu-surface-dark: #22242a;
     --neu-text: #e1e5ed;
     --neu-text-muted: #b2bac8;
     --neu-primary: #72d2ad;
     --neu-on-primary: #11251e;
+    --neu-danger: #ff9a84;
+    --neu-warning: #f1c27d;
+    --neu-info: #9cc9e6;
+    --neu-focus: #8bbcff;
     --neu-shadow-light: #373a43;
     --neu-shadow-dark: #1b1d22;
+    --neu-gradient-convex: linear-gradient(145deg, var(--neu-surface-light), var(--neu-surface-dark));
+    --neu-gradient-concave: linear-gradient(145deg, var(--neu-surface-dark), var(--neu-surface-light));
+    --neu-shadow-float: 0 12px 34px rgb(0 0 0 / 42%);
+    --text-shadow-main: 1px 1px 1px #16171a, -1px -1px 1px rgb(255 255 255 / 5%);
+    --glass-border: rgb(255 255 255 / 5%);
+    --progress-gradient: linear-gradient(90deg, color-mix(in srgb, var(--neu-primary) 76%, #4b4b6a), #6e6e8e);
   }
 
   :where(.neu-card-convex, .neu-card-concave, .neu-card-inset) {
@@ -39,6 +72,22 @@
   .neu-card-inset { background: var(--neu-bg); box-shadow: var(--neu-shadow-inset); }
   .neu-btn-sm, .neu-tag-sm, .neu-size-sm { --neu-legacy-size: sm; }
   .neu-btn-lg, .neu-tag-lg, .neu-size-lg { --neu-legacy-size: lg; }
+  .neu-btn.neu-btn-sm, .neu-btn.neu-size-sm { min-height: 44px; padding: .5rem 1rem; font-size: .8125rem; }
+  .neu-btn.neu-btn-lg, .neu-btn.neu-size-lg { min-height: 52px; padding: 1rem 2rem; font-size: 1.0625rem; }
+  .neu-tag.neu-tag-sm, .neu-tag.neu-size-sm { padding: .35rem .65rem; font-size: .8125rem; }
+  .neu-tag.neu-tag-lg, .neu-tag.neu-size-lg { min-height: 40px; padding: .65rem 1.1rem; font-size: .9375rem; }
   .neu-title { color: var(--neu-text); font-family: var(--neu-font-sans); font-weight: 700; }
   .neu-text-sub { color: var(--neu-text-muted); }
+  .neu-pressed { background: var(--neu-bg); box-shadow: var(--neu-shadow-inset); }
+  .neu-code-block { overflow: auto; padding: 1rem; border-radius: var(--neu-radius-md); background: var(--neu-bg); box-shadow: var(--neu-shadow-inset); }
+  .neu-dropdown-menu { min-width: 12rem; padding: .5rem; border: 1px solid rgb(255 255 255 / 20%); border-radius: var(--neu-radius-md); background: var(--neu-bg); box-shadow: var(--neu-shadow-float); color: var(--neu-text); }
+  .neu-dropdown-item { display: flex; min-height: 44px; align-items: center; gap: .5rem; padding: .55rem .75rem; border-radius: var(--neu-radius-sm); color: var(--neu-text); text-decoration: none; }
+  .neu-dropdown-item:hover { background: color-mix(in srgb, var(--neu-primary) 12%, transparent); color: var(--neu-primary); }
+  .neu-badge-wrapper { position: relative; display: inline-flex; }
+  .neu-badge { display: inline-grid; min-width: 1.25rem; height: 1.25rem; place-items: center; border-radius: var(--neu-radius-round); background: var(--neu-primary); color: var(--neu-on-primary); font-size: .72rem; font-weight: 700; }
+  .neu-badge.dot { width: .65rem; min-width: .65rem; height: .65rem; padding: 0; font-size: 0; }
+  .neu-badge-wrapper .neu-badge { position: absolute; top: -.25rem; right: -.25rem; }
+  .neu-switch .neu-slider { position: relative; display: inline-block; width: 3.5rem; height: 1.8rem; border-radius: var(--neu-radius-round); background: var(--neu-bg); box-shadow: var(--neu-shadow-inset); transition: background var(--neu-duration-normal) var(--neu-ease), box-shadow var(--neu-duration-normal) var(--neu-ease); }
+  .neu-switch .neu-slider::before { content: ""; position: absolute; inset: .25rem auto .25rem .25rem; aspect-ratio: 1; border-radius: 50%; background: var(--neu-bg); box-shadow: var(--neu-switch-thumb-shadow); transition: transform var(--neu-duration-normal) var(--neu-ease-spring), background var(--neu-duration-normal) var(--neu-ease), box-shadow var(--neu-duration-normal) var(--neu-ease); }
+  .neu-switch input:checked + .neu-slider::before { transform: translateX(1.7rem); background: var(--neu-primary); }
 }

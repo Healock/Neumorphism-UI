@@ -20,16 +20,22 @@
     --neu-radius-md: 1.25rem;
     --neu-radius-lg: 1.875rem;
     --neu-radius-round: 9999px;
-    --neu-font-sans: "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
+    --neu-font-sans: "Noto Sans SC", sans-serif;
     --neu-duration-fast: 150ms;
     --neu-duration-normal: 280ms;
+    --neu-duration-slow: 420ms;
     --neu-ease: cubic-bezier(.23, 1, .32, 1);
+    --neu-ease-spring: cubic-bezier(.34, 1.56, .64, 1);
     --neu-gradient-convex: linear-gradient(145deg, var(--neu-surface-light), var(--neu-surface-dark));
     --neu-gradient-concave: linear-gradient(145deg, var(--neu-surface-dark), var(--neu-surface-light));
     --neu-shadow-sm: -4px -4px 9px var(--neu-shadow-light), 4px 4px 9px var(--neu-shadow-dark);
     --neu-shadow-md: -9px -9px 18px var(--neu-shadow-light), 9px 9px 18px var(--neu-shadow-dark);
     --neu-shadow-lg: -14px -14px 28px var(--neu-shadow-light), 14px 14px 28px var(--neu-shadow-dark);
     --neu-shadow-inset: inset 5px 5px 12px var(--neu-shadow-dark), inset -5px -5px 12px var(--neu-shadow-light);
+    --neu-shadow-pressed: inset 3px 3px 8px var(--neu-shadow-dark), inset -3px -3px 8px var(--neu-shadow-light);
+    --neu-primary-shadow: -4px -4px 9px color-mix(in srgb, var(--neu-primary) 20%, var(--neu-shadow-light)), 4px 4px 9px color-mix(in srgb, var(--neu-primary) 16%, var(--neu-shadow-dark));
+    --neu-primary-shadow-pressed: inset 3px 3px 8px color-mix(in srgb, var(--neu-primary) 72%, var(--neu-shadow-dark)), inset -3px -3px 8px color-mix(in srgb, var(--neu-primary) 68%, white);
+    --neu-switch-thumb-shadow: 4px 4px 9px var(--neu-shadow-dark);
     --neu-shadow-float: 0 12px 34px rgb(38 42 54 / 18%);
   }
 
