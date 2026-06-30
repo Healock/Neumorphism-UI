@@ -20,7 +20,7 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 24
-          registry-url: https://registry.npmjs.org
+          package-manager-cache: true
       - name: Validate release metadata
         working-directory: packages/neumorphism-ui
         run: |
@@ -88,5 +88,5 @@ jobs:
           version=$(node -p "require('./package.json').version")
           tag=$(node -p "const version = require('./package.json').version; version.includes('-') ? version.split('-')[1].split('.')[0] : 'latest'")
           echo "Publishing ${version} with dist-tag ${tag}"
-          npm publish --tag "${tag}" --provenance
+          npm publish --tag "${tag}" --provenance --access public
         working-directory: packages/neumorphism-ui
