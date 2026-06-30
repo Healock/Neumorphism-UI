@@ -85,6 +85,10 @@ jobs:
       - run: npm install --global npm@11.17.0
       - name: Publish package
         if: steps.published.outputs.exists != 'true'
+        env:
+          NODE_AUTH_TOKEN: ''
+          NPM_AUTH_TOKEN: ''
+          NPM_TOKEN: ''
         run: |
           version=$(node -p "require('./package.json').version")
           tag=$(node -p "const version = require('./package.json').version; version.includes('-') ? version.split('-')[1].split('.')[0] : 'latest'")
