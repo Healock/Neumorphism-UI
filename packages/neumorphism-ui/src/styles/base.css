@@ -6,6 +6,19 @@
     font-family: var(--neu-font-sans);
   }
 
+  .neu-theme-provider {
+    text-shadow: 0 1px 0 rgb(255 255 255 / 68%);
+  }
+
+  [data-neu-theme="dark"] .neu-theme-provider,
+  .neu-theme-provider[data-neu-theme="dark"] {
+    text-shadow: 0 1px 0 rgb(0 0 0 / 35%);
+  }
+
+  .neu-theme-provider :where(input, textarea, select, option, code, pre, .neu-btn--primary, .neu-tag--primary, .neu-snackbar, .neu-tooltip, .neu-fab__trigger, .neu-fab__action) {
+    text-shadow: none;
+  }
+
   .neu-root,
   .neu-page {
     min-height: 100vh;

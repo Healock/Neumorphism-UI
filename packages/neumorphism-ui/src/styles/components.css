@@ -1,5 +1,8 @@
 @layer neu.components;
 
+@import "./components-extra.css";
+@import "./components-material.css";
+
 /* Component class rules intentionally stay unlayered so app resets/preflight cannot override the CSS contract. */
   .neu-theme-provider {
     color: var(--neu-text);
@@ -233,7 +236,7 @@
   .neu-tag.neu-size--sm { padding: .35rem .65rem; }
   .neu-tag.neu-size--md { padding: .5rem .85rem; }
   .neu-tag.neu-size--lg { min-height: 40px; padding: .65rem 1.1rem; font-size: .9375rem; }
-  .neu-tag--primary { color: var(--neu-primary); }
+  .neu-tag--primary { color: color-mix(in srgb, var(--neu-primary) 55%, var(--neu-text)); }
   .neu-tag--danger { color: var(--neu-danger); }
   .neu-tag:hover { transform: translateY(-1px); }
   .neu-tag__remove, .neu-alert__close { display: inline-grid; width: 2.75rem; height: 2.75rem; place-items: center; border: 0; border-radius: 50%; background: transparent; color: inherit; cursor: pointer; transition: transform var(--neu-duration-fast) var(--neu-ease-spring), background var(--neu-duration-fast) var(--neu-ease), box-shadow var(--neu-duration-fast) var(--neu-ease); }
@@ -257,16 +260,22 @@
   .neu-progress__track { height: .75rem; overflow: hidden; border-radius: var(--neu-radius-round); background: var(--neu-bg); box-shadow: var(--neu-shadow-inset); }
   .neu-progress__fill { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, color-mix(in srgb, var(--neu-primary) 82%, white), var(--neu-primary)); transition: width var(--neu-duration-slow) var(--neu-ease); }
 
-  .neu-pagination { display: flex; align-items: center; gap: .5rem; }
-  .neu-pagination button { min-width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--neu-bg); box-shadow: var(--neu-shadow-sm); color: var(--neu-text); cursor: pointer; transition: transform var(--neu-duration-fast) var(--neu-ease-spring), box-shadow var(--neu-duration-fast) var(--neu-ease), color var(--neu-duration-fast) var(--neu-ease); }
-  .neu-pagination button:not(:disabled):hover { transform: translateY(-1px) scale(1.04); }
-  .neu-pagination button:not(:disabled):active { transform: translateY(1px) scale(.98); box-shadow: var(--neu-shadow-pressed); }
-  .neu-pagination button.is-active { color: var(--neu-primary); font-weight: 700; box-shadow: var(--neu-shadow-inset); }
-  .neu-pagination button:disabled { cursor: not-allowed; opacity: .45; }
+  .neu-pagination { display: flex; align-items: center; gap: .45rem; }
+  .neu-pagination button { border: 0; color: var(--neu-text); cursor: pointer; font: 600 .875rem var(--neu-font-sans); transition: color var(--neu-duration-fast) var(--neu-ease), transform var(--neu-duration-fast) var(--neu-ease-spring); }
+  .neu-pagination__control { min-width: 44px; height: 44px; border-radius: 50%; background: var(--neu-bg); box-shadow: var(--neu-shadow-sm); }
+  .neu-pagination__control:not(:disabled):hover { transform: translateY(-1px) scale(1.04); }
+  .neu-pagination__control:not(:disabled):active { transform: translateY(1px) scale(.98); box-shadow: var(--neu-shadow-pressed); }
+  .neu-pagination__control:disabled { cursor: not-allowed; opacity: .45; }
+  .neu-pagination__pages { position: relative; display: flex; align-items: center; gap: .25rem; }
+  .neu-pagination__indicator { position: absolute; top: 0; left: 0; z-index: 0; height: 100%; border-radius: var(--neu-radius-round); background: var(--neu-bg); box-shadow: var(--neu-shadow-sm); opacity: 0; pointer-events: none; transition: transform var(--neu-duration-slow) var(--neu-ease), width var(--neu-duration-slow) var(--neu-ease), opacity var(--neu-duration-fast) var(--neu-ease); will-change: transform, width; }
+  .neu-pagination__indicator.is-traveling { animation: neu-pagination-travel var(--neu-duration-slow) var(--neu-ease); }
+  .neu-pagination__page { position: relative; z-index: 1; display: inline-flex; width: 44px; height: 44px; align-items: center; justify-content: center; border-radius: 50%; background: transparent; box-shadow: none; }
+  .neu-pagination__page:hover { color: var(--neu-primary); }
+  .neu-pagination__page.is-active { color: var(--neu-primary); font-weight: 700; }
 
   .neu-tabs { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; color: var(--neu-text); }
-  .neu-tabs__list { display: inline-flex; width: fit-content; max-width: 100%; align-items: center; gap: .25rem; padding: .5rem; border-radius: var(--neu-radius-round); background: var(--neu-bg); box-shadow: var(--neu-shadow-inset); }
-  .neu-tabs__trigger { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; padding: .6rem 1rem; border: 0; border-radius: var(--neu-radius-round); background: transparent; color: var(--neu-text-muted); cursor: pointer; font: 600 .875rem var(--neu-font-sans); transition: transform var(--neu-duration-fast) var(--neu-ease-spring), box-shadow var(--neu-duration-fast) var(--neu-ease), background var(--neu-duration-fast) var(--neu-ease), color var(--neu-duration-fast) var(--neu-ease); }
+  .neu-tabs__list { display: inline-flex; width: fit-content; max-width: 100%; align-items: center; gap: .35rem; padding: .7rem; border-radius: var(--neu-radius-round); background: var(--neu-bg); box-shadow: var(--neu-shadow-inset); }
+  .neu-tabs__trigger { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; padding: .5rem .75rem; border: 0; border-radius: var(--neu-radius-round); background: transparent; color: var(--neu-text-muted); cursor: pointer; font: 600 .875rem var(--neu-font-sans); transition: transform var(--neu-duration-fast) var(--neu-ease-spring), box-shadow var(--neu-duration-fast) var(--neu-ease), background var(--neu-duration-fast) var(--neu-ease), color var(--neu-duration-fast) var(--neu-ease); }
   .neu-tabs__trigger:not(:disabled):hover { transform: translateY(-1px); color: var(--neu-text); }
   .neu-tabs__trigger[data-state="active"] { background: var(--neu-bg); box-shadow: var(--neu-shadow-sm); color: var(--neu-text); }
   .neu-tabs__content { width: 100%; border-radius: var(--neu-radius-md); animation: neu-tab-panel-in var(--neu-duration-normal) var(--neu-ease) both; }
@@ -414,6 +423,13 @@
     from { opacity: 0; transform: translateY(.25rem); }
     to { opacity: 1; transform: translateY(0); }
   }
+  @keyframes neu-pagination-travel {
+    0%, 100% { background: var(--neu-bg); box-shadow: var(--neu-shadow-sm); }
+    38%, 62% {
+      background: color-mix(in srgb, var(--neu-bg) 94%, var(--neu-text) 3%);
+      box-shadow: 0 1px 3px color-mix(in srgb, var(--neu-text) 9%, transparent);
+    }
+  }
   .neu-page { min-height: 100vh; background: var(--neu-bg); color: var(--neu-text); font-family: var(--neu-font-sans); }
 
 @media (hover: none) {
@@ -510,6 +526,17 @@
 }
 
 @media (max-width: 40rem) {
+  .neu-pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .neu-pagination__pages {
+    order: -1;
+    flex: 1 0 100%;
+    justify-content: center;
+  }
+
   .neu-navbar {
     flex-wrap: wrap;
   }
