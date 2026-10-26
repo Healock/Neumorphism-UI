@@ -108,6 +108,16 @@ describe('style entrypoints', () => {
     expect(tokens).toContain('--neu-text-muted: #b2bac8')
   })
 
+  it('defines the 4px spacing scale and semantic aliases', () => {
+    const tokens = readFileSync(resolve(styles, 'tokens.css'), 'utf8')
+    expect(tokens).toContain('--neu-space-1: 0.25rem')
+    expect(tokens).toContain('--neu-space-9: 6rem')
+    expect(tokens).toContain('--neu-pad-control-x: var(--neu-space-4)')
+    expect(tokens).toContain('--neu-gap-group: var(--neu-space-5)')
+    expect(tokens).toContain('--neu-pad-card: var(--neu-space-5)')
+    expect(tokens).toContain('--neu-section-gap: clamp(var(--neu-space-7), 6vw, var(--neu-space-9))')
+  })
+
   it('bridges the historical CSS contract for static HTML consumers', () => {
     const legacy = readFileSync(resolve(styles, 'legacy.css'), 'utf8')
     expect(legacy).toContain('--bg-color: var(--neu-bg)')
