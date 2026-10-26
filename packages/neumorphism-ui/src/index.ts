@@ -20,9 +20,38 @@ import {
   NeuTag,
   NeuTextarea,
 } from './components'
+import {
+  NeuAccordion,
+  NeuBreadcrumb,
+  NeuEmptyState,
+  NeuModal,
+  NeuSegmented,
+  NeuSelect,
+  NeuSkeleton,
+  NeuSlider,
+  NeuTooltip,
+} from './components-extra'
+import {
+  NeuAppBar,
+  NeuBottomAppBar,
+  NeuBottomSheet,
+  NeuChip,
+  NeuCircularProgress,
+  NeuFab,
+  NeuNavigationBar,
+  NeuNavigationDrawer,
+  NeuNavigationRail,
+  NeuTabBar,
+  NeuSearchBar,
+  NeuSnackbar,
+} from './components-material'
+import { NeuReveal, NeuTransition } from './motion'
 import { NeuThemeProvider, useNeuTheme } from './theme'
 
 export * from './components'
+export * from './components-extra'
+export * from './components-material'
+export * from './motion'
 export * from './theme'
 
 const components = [
@@ -46,6 +75,29 @@ const components = [
   NeuDropdownItem,
   NeuNavbar,
   NeuNavPills,
+  NeuSelect,
+  NeuAccordion,
+  NeuModal,
+  NeuTooltip,
+  NeuSegmented,
+  NeuBreadcrumb,
+  NeuSkeleton,
+  NeuSlider,
+  NeuEmptyState,
+  NeuAppBar,
+  NeuBottomAppBar,
+  NeuNavigationBar,
+  NeuNavigationRail,
+  NeuNavigationDrawer,
+  NeuTabBar,
+  NeuSearchBar,
+  NeuFab,
+  NeuSnackbar,
+  NeuChip,
+  NeuBottomSheet,
+  NeuCircularProgress,
+  NeuTransition,
+  NeuReveal,
 ]
 
 export const NeumorphismUI: Plugin = {

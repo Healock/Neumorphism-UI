@@ -25,17 +25,40 @@ const componentExports = [
   'NeuDropdownItem',
   'NeuNavbar',
   'NeuNavPills',
+  'NeuSelect',
+  'NeuAccordion',
+  'NeuModal',
+  'NeuTooltip',
+  'NeuSegmented',
+  'NeuBreadcrumb',
+  'NeuSkeleton',
+  'NeuSlider',
+  'NeuEmptyState',
+  'NeuAppBar',
+  'NeuBottomAppBar',
+  'NeuNavigationBar',
+  'NeuNavigationRail',
+  'NeuTabBar',
+  'NeuNavigationDrawer',
+  'NeuSearchBar',
+  'NeuFab',
+  'NeuSnackbar',
+  'NeuChip',
+  'NeuBottomSheet',
+  'NeuCircularProgress',
+  'NeuTransition',
+  'NeuReveal',
 ] as const
 
 describe('public API', () => {
-  it('exports the plugin and all v1 components', () => {
+  it('exports the plugin and all public components', () => {
     expect(ui).toHaveProperty('NeumorphismUI')
     for (const name of componentExports) {
       expect(ui, name).toHaveProperty(name)
     }
   })
 
-  it('registers every v1 component through the plugin', () => {
+  it('registers every public component through the plugin', () => {
     const app = createApp(defineComponent({ render: () => null }))
     app.use(ui.NeumorphismUI)
     for (const name of componentExports) {

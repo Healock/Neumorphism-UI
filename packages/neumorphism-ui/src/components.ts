@@ -3,8 +3,13 @@ import {
   defineComponent,
   h,
   inject,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
   provide,
+  ref,
   useId,
+  watch,
   type InjectionKey,
   type PropType,
 } from 'vue'
@@ -448,26 +453,99 @@ export const NeuPagination = defineComponent({
   setup(props, { emit }) {
     const pageCount = computed(() => Math.max(1, Math.ceil(props.total / props.pageSize)))
     const pages = computed(() => {
+      const count = pageCount.value
+      if (count <= 5) {
+        return Array.from({ length: count }, (_, index) => index + 1)
+      }
       const start = Math.max(1, props.page - props.siblingCount)
-      const end = Math.min(pageCount.value, props.page + props.siblingCount)
+      const end = Math.min(count, props.page + props.siblingCount)
       return Array.from({ length: end - start + 1 }, (_, index) => start + index)
     })
+    const pagesEl = ref<HTMLElement | null>(null)
+    const pageEls: HTMLElement[] = []
+    const indicatorStyle = ref<Record<string, string>>({
+      width: '0px',
+      transform: 'translateX(0)',
+      opacity: '0',
+    })
+    let resizeObserver: ResizeObserver | undefined
+    const traveling = ref(false)
+    let travelTimer: ReturnType<typeof setTimeout> | undefined
+
+    const syncIndicator = () => {
+      const index = pages.value.indexOf(props.page)
+      const active = pageEls[index]
+      if (!active || !active.offsetWidth) return
+      indicatorStyle.value = {
+        width: `${active.offsetWidth}px`,
+        transform: `translateX(${active.offsetLeft}px)`,
+        opacity: '1',
+      }
+    }
+
+    onMounted(() => {
+      syncIndicator()
+      requestAnimationFrame(syncIndicator)
+      if (typeof ResizeObserver !== 'undefined' && pagesEl.value) {
+        resizeObserver = new ResizeObserver(syncIndicator)
+        resizeObserver.observe(pagesEl.value)
+      }
+      window.addEventListener('resize', syncIndicator)
+    })
+    onBeforeUnmount(() => {
+      resizeObserver?.disconnect()
+      window.removeEventListener('resize', syncIndicator)
+      clearTimeout(travelTimer)
+    })
+    watch([() => props.page, () => pageCount.value, () => props.siblingCount], async () => {
+      await nextTick()
+      syncIndicator()
+      traveling.value = true
+      clearTimeout(travelTimer)
+      travelTimer = setTimeout(() => {
+        traveling.value = false
+      }, 560)
+    })
+
     const go = (page: number) => {
       const next = Math.max(1, Math.min(pageCount.value, page))
       if (next === props.page) return
       emit('update:page', next)
       emit('change', next)
     }
+
     return () => h('nav', { class: 'neu-pagination', 'aria-label': 'Pagination' }, [
-      h('button', { type: 'button', disabled: props.page <= 1, 'aria-label': 'Previous page', onClick: () => go(props.page - 1) }, '‹'),
-      ...pages.value.map(page => h('button', {
+      h('button', {
         type: 'button',
-        class: { 'is-active': page === props.page },
-        'aria-current': page === props.page ? 'page' : undefined,
-        'aria-label': `Page ${page}`,
-        onClick: () => go(page),
-      }, String(page))),
-      h('button', { type: 'button', disabled: props.page >= pageCount.value, 'aria-label': 'Next page', onClick: () => go(props.page + 1) }, '›'),
+        class: 'neu-pagination__control',
+        disabled: props.page <= 1,
+        'aria-label': 'Previous page',
+        onClick: () => go(props.page - 1),
+      }, '‹'),
+      h('div', { class: 'neu-pagination__pages', ref: pagesEl }, [
+        h('span', {
+          class: ['neu-pagination__indicator', { 'is-traveling': traveling.value }],
+          'aria-hidden': 'true',
+          style: indicatorStyle.value,
+        }),
+        ...pages.value.map((page, index) => h('button', {
+          type: 'button',
+          class: ['neu-pagination__page', { 'is-active': page === props.page }],
+          'aria-current': page === props.page ? 'page' : undefined,
+          'aria-label': `Page ${page}`,
+          ref: (el: unknown) => {
+            if (el instanceof HTMLElement) pageEls[index] = el
+          },
+          onClick: () => go(page),
+        }, String(page))),
+      ]),
+      h('button', {
+        type: 'button',
+        class: 'neu-pagination__control',
+        disabled: props.page >= pageCount.value,
+        'aria-label': 'Next page',
+        onClick: () => go(props.page + 1),
+      }, '›'),
     ])
   },
 })

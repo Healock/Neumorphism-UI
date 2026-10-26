@@ -214,6 +214,13 @@ describe('interaction components', () => {
     expect(wrapper.emitted('update:page')?.[0]).toEqual([3])
   })
 
+  it('keeps short page ranges stable and exposes a sliding indicator', () => {
+    const wrapper = mount(NeuPagination, { props: { page: 2, total: 40, pageSize: 10 } })
+    expect(wrapper.findAll('.neu-pagination__page').map(button => button.text())).toEqual(['1', '2', '3', '4'])
+    expect(wrapper.get('.neu-pagination__indicator').attributes('aria-hidden')).toBe('true')
+    expect(wrapper.get('.neu-pagination__page.is-active').attributes('aria-current')).toBe('page')
+  })
+
   it('applies and removes the resolved theme on the root element', async () => {
     const wrapper = mount(NeuThemeProvider, {
       props: { mode: 'dark', tokens: { primary: '#123456' } },

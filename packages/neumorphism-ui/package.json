@@ -71,6 +71,18 @@
       "types": "./src/styles/entrypoints.d.ts",
       "default": "./src/styles/components.css"
     },
+    "./components-extra.css": {
+      "types": "./src/styles/entrypoints.d.ts",
+      "default": "./src/styles/components-extra.css"
+    },
+    "./components-material.css": {
+      "types": "./src/styles/entrypoints.d.ts",
+      "default": "./src/styles/components-material.css"
+    },
+    "./motion.css": {
+      "types": "./src/styles/entrypoints.d.ts",
+      "default": "./src/styles/motion.css"
+    },
     "./utilities.css": {
       "types": "./src/styles/entrypoints.d.ts",
       "default": "./src/styles/utilities.css"

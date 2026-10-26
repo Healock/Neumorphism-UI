@@ -8,7 +8,10 @@ const cssEntries = [
   './base.css',
   './core.css',
   './components.css',
+  './components-extra.css',
+  './components-material.css',
   './utilities.css',
+  './motion.css',
   './fonts.css',
   './fonts-block.css',
   './content.css',
@@ -51,6 +54,9 @@ describe('style entrypoints', () => {
     }
 
     expect(readFileSync(resolve(styles, 'core.css'), 'utf8')).toContain('@import "./utilities.css";')
+    expect(readFileSync(resolve(styles, 'core.css'), 'utf8')).toContain('@import "./motion.css";')
+    expect(readFileSync(resolve(styles, 'components.css'), 'utf8')).toContain('@import "./components-extra.css";')
+    expect(readFileSync(resolve(styles, 'components.css'), 'utf8')).toContain('@import "./components-material.css";')
     expect(readFileSync(resolve(styles, 'style.css'), 'utf8')).toContain('@import "./core.css";')
     expect(readFileSync(resolve(styles, 'neu-ui.css'), 'utf8')).toContain('@import "./legacy.css";')
     expect(readFileSync(resolve(styles, 'neu-ui-no-fonts.css'), 'utf8')).toContain('@import "./legacy.css";')
@@ -72,6 +78,7 @@ describe('style entrypoints', () => {
     expect(readFileSync(resolve(styles, 'base.css'), 'utf8').trimStart()).toMatch(/^@layer neu\.base \{/)
     expect(readFileSync(resolve(styles, 'utilities.css'), 'utf8').trimStart()).toMatch(/^@layer neu\.utilities \{/)
     expect(readFileSync(resolve(styles, 'components.css'), 'utf8').trimStart()).toMatch(/^@layer neu\.components;/)
+    expect(readFileSync(resolve(styles, 'motion.css'), 'utf8').trimStart()).toMatch(/^@layer neu\.motion \{/)
     expect(readFileSync(resolve(styles, 'content.css'), 'utf8').trimStart()).toMatch(/^@layer neu\.content \{/)
     expect(readFileSync(resolve(styles, 'highlight.css'), 'utf8').trimStart()).toMatch(/^@layer neu\.highlight \{/)
     expect(readFileSync(resolve(styles, 'legacy.css'), 'utf8')).toContain('@layer neu.legacy {')
@@ -118,5 +125,20 @@ describe('style entrypoints', () => {
     expect(transitions).toContain('navigation: auto')
     expect(transitions).toContain('::view-transition-old(root)')
     expect(transitions).toContain('mix-blend-mode: normal')
+  })
+
+  it('ships reduced-motion-safe motion primitives', () => {
+    const motion = readFileSync(resolve(styles, 'motion.css'), 'utf8')
+    expect(motion).toContain('@keyframes neu-motion-fade-up')
+    expect(motion).toContain('.neu-animate-fade-up')
+    expect(motion).toContain('.neu-stagger')
+    expect(motion).toContain('.neu-t-fade-enter-active')
+    expect(motion).toContain('.neu-reveal')
+    expect(motion).toContain('visibility: hidden')
+    expect(motion).toContain('translate3d(var(--neu-motion-distance, 1.25rem), 0, 0)')
+    expect(motion).toContain('translate3d(var(--neu-motion-distance, 3rem), 0, 0)')
+    expect(motion).toContain('--neu-motion-distance: 2.75rem')
+    expect(motion).toContain('@media (prefers-reduced-motion: reduce)')
+    expect(motion).toContain('animation-duration: .01ms !important')
   })
 })

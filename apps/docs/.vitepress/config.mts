@@ -24,6 +24,8 @@ export default defineConfig({
         text: '参考',
         items: [
           { text: '组件总览', link: '/components/overview' },
+          { text: 'Material 外壳', link: '/components/material' },
+          { text: '动效', link: '/motion' },
           { text: 'Utilities', link: '/utilities' },
         ],
       },
