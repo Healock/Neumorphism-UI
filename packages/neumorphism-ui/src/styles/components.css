@@ -96,9 +96,9 @@
   .neu-surface--inset { background: var(--neu-bg); box-shadow: var(--neu-shadow-inset); }
   .neu-surface--glass { background: var(--neu-bg-glass); box-shadow: var(--neu-shadow-float); backdrop-filter: blur(18px); }
 
-  .neu-card.neu-size--sm { padding: 1rem; border-radius: var(--neu-radius-md); }
-  .neu-card.neu-size--md { padding: 1.5rem; border-radius: var(--neu-radius-lg); }
-  .neu-card.neu-size--lg { padding: 2.5rem; border-radius: calc(var(--neu-radius-lg) + .5rem); }
+  .neu-card.neu-size--sm { padding: var(--neu-pad-card-sm); border-radius: var(--neu-radius-md); }
+  .neu-card.neu-size--md { padding: var(--neu-pad-card); border-radius: var(--neu-radius-lg); }
+  .neu-card.neu-size--lg { padding: var(--neu-pad-card-lg); border-radius: calc(var(--neu-radius-lg) + .5rem); }
 
   .neu-btn {
     display: inline-flex;
@@ -122,9 +122,9 @@
       opacity var(--neu-duration-fast) var(--neu-ease);
   }
 
-  .neu-btn.neu-size--sm { min-height: 44px; padding: .5rem 1rem; font-size: .8125rem; }
-  .neu-btn.neu-size--md { padding: .75rem 1.5rem; }
-  .neu-btn.neu-size--lg { min-height: 52px; padding: 1rem 2rem; font-size: 1.0625rem; }
+  .neu-btn.neu-size--sm { min-height: 44px; padding: var(--neu-space-2) var(--neu-space-4); font-size: .8125rem; }
+  .neu-btn.neu-size--md { padding: var(--neu-pad-control-y) var(--neu-pad-control-x); }
+  .neu-btn.neu-size--lg { min-height: 52px; padding: var(--neu-space-4) var(--neu-space-6); font-size: 1.0625rem; }
   .neu-btn--primary {
     background: linear-gradient(
       145deg,
@@ -158,7 +158,7 @@
     animation: neu-spin .75s linear infinite;
   }
 
-  .neu-field { display: grid; gap: .5rem; color: var(--neu-text); font-family: var(--neu-font-sans); }
+  .neu-field { display: grid; gap: var(--neu-gap-inline); color: var(--neu-text); font-family: var(--neu-font-sans); }
   .neu-field__label { font-size: .875rem; font-weight: 600; }
   .neu-field__help { color: var(--neu-text-muted); font-size: .8125rem; }
   .neu-field__help.is-error, .neu-field.is-invalid .neu-field__label { color: var(--neu-danger); }
@@ -175,7 +175,7 @@
     color: var(--neu-text);
     caret-color: var(--neu-primary);
     font: 400 .9375rem/1.5 var(--neu-font-sans);
-    padding: .7rem .9rem;
+    padding: var(--neu-space-3) var(--neu-space-4);
     transition:
       box-shadow var(--neu-duration-normal) var(--neu-ease),
       border-color var(--neu-duration-fast) var(--neu-ease),
@@ -274,8 +274,8 @@
   .neu-pagination__page.is-active { color: var(--neu-primary); font-weight: 700; }
 
   .neu-tabs { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; color: var(--neu-text); }
-  .neu-tabs__list { display: inline-flex; width: fit-content; max-width: 100%; align-items: center; gap: .35rem; padding: .7rem; border-radius: var(--neu-radius-round); background: var(--neu-bg); box-shadow: var(--neu-shadow-inset); }
-  .neu-tabs__trigger { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; padding: .5rem .75rem; border: 0; border-radius: var(--neu-radius-round); background: transparent; color: var(--neu-text-muted); cursor: pointer; font: 600 .875rem var(--neu-font-sans); transition: transform var(--neu-duration-fast) var(--neu-ease-spring), box-shadow var(--neu-duration-fast) var(--neu-ease), background var(--neu-duration-fast) var(--neu-ease), color var(--neu-duration-fast) var(--neu-ease); }
+  .neu-tabs__list { display: inline-flex; width: fit-content; max-width: 100%; align-items: center; gap: var(--neu-space-1); padding: var(--neu-space-3); border-radius: var(--neu-radius-round); background: var(--neu-bg); box-shadow: var(--neu-shadow-inset); }
+  .neu-tabs__trigger { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; padding: var(--neu-space-2) var(--neu-space-3); border: 0; border-radius: var(--neu-radius-round); background: transparent; color: var(--neu-text-muted); cursor: pointer; font: 600 .875rem var(--neu-font-sans); transition: transform var(--neu-duration-fast) var(--neu-ease-spring), box-shadow var(--neu-duration-fast) var(--neu-ease), background var(--neu-duration-fast) var(--neu-ease), color var(--neu-duration-fast) var(--neu-ease); }
   .neu-tabs__trigger:not(:disabled):hover { transform: translateY(-1px); color: var(--neu-text); }
   .neu-tabs__trigger[data-state="active"] { background: var(--neu-bg); box-shadow: var(--neu-shadow-sm); color: var(--neu-text); }
   .neu-tabs__content { width: 100%; border-radius: var(--neu-radius-md); animation: neu-tab-panel-in var(--neu-duration-normal) var(--neu-ease) both; }
